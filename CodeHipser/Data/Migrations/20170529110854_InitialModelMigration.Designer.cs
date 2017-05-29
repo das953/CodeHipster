@@ -8,9 +8,10 @@ using CodeHipser.Data;
 namespace CodeHipser.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170529110854_InitialModelMigration")]
+    partial class InitialModelMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -21,8 +22,7 @@ namespace CodeHipser.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("AnswerText")
-                        .IsRequired();
+                    b.Property<string>("AnswerText");
 
                     b.Property<bool>("IsCorrect");
 
@@ -92,8 +92,7 @@ namespace CodeHipser.Data.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("Name")
-                        .IsRequired();
+                    b.Property<string>("Name");
 
                     b.Property<string>("Teacher");
 
@@ -109,8 +108,7 @@ namespace CodeHipser.Data.Migrations
 
                     b.Property<int>("QuestionGrade");
 
-                    b.Property<string>("QuestionText")
-                        .IsRequired();
+                    b.Property<string>("QuestionText");
 
                     b.Property<int>("SectionId");
 
@@ -132,8 +130,7 @@ namespace CodeHipser.Data.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("Name")
-                        .IsRequired();
+                    b.Property<string>("Name");
 
                     b.Property<int>("Number");
 
@@ -159,8 +156,7 @@ namespace CodeHipser.Data.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("Name")
-                        .IsRequired();
+                    b.Property<string>("Name");
 
                     b.Property<int?>("ParentId");
 
