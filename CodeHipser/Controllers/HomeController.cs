@@ -3,14 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using CodeHipser.Models;
+using CodeHipser.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace CodeHipser.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private ApplicationDbContext _context;
+        public HomeController(ApplicationDbContext context)
         {
-            return View();
+            _context = context;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if(disposing)
+            {
+                _context.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        public IActionResult Index()
+        { 
+            return View(_context.Courses.ToList());
         }
 
         public IActionResult About()

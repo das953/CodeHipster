@@ -17,7 +17,7 @@ textarea {
     max-width: 280px;
 }
 
-/* Carousel */
+/*-----------------------------------------------Carousel-------------------------------------------------*/
 .carousel-caption p {
     font-size: 20px;
     line-height: 1.4;
@@ -41,6 +41,12 @@ textarea {
     width: 100%;
 }
 
+
+/*-----------------------------------------Sidebar Navigation----------------------------------------------*/
+
+
+
+/*-----------------------------------------Media Queries---------------------------------------------------*/
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
     /* Hide captions */

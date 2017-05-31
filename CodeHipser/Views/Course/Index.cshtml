@@ -1,0 +1,17 @@
+@model List<string>
+    @{
+    ViewData["Title"] = "Index";
+    }
+
+    <div class="row">
+        <aside class="col-sm-4">
+            <h3>Courses available</h3>
+            <ul class="nav nav-list sidebar-nav">
+                @foreach (var item in @Model)
+            {
+                    <li>@item</li>
+            }
+            </ul>
+        </aside>
+    </div>
+
