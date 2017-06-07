@@ -19,6 +19,13 @@ namespace CodeHipser.Models
         public int SectionTypeId { get; set; }
         public virtual SectionType SectionType { get; set; }
 
+        public Section()
+        {
+            Children = new List<Section>();
+            Questions = new List<Question>();
+            StudentProgress = new List<StudentProgress>();
+        }
+        public virtual ICollection<Question> Questions { get; set; }
         public virtual ICollection<StudentProgress> StudentProgress { get; set; }
     }
 }

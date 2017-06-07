@@ -13,5 +13,11 @@ namespace CodeHipser.Models
 
         public int SectionId { get; set; }
         public virtual Section Section { get; set; }
+
+        public Question()
+        {
+            Answers = new List<Answer>();
+        }
+        public virtual ICollection<Answer> Answers { get; set; }
     }
 }

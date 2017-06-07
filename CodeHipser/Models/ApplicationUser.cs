@@ -10,5 +10,9 @@ namespace CodeHipser.Models
     public class ApplicationUser : IdentityUser
     {
         public virtual ICollection<StudentProgress> StudentProgress { get; set; }
+        public ApplicationUser()
+        {
+            StudentProgress = new List<StudentProgress>();
+        }
     }
 }

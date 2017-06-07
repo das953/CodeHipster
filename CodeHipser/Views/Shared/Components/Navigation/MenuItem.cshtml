@@ -1,0 +1,25 @@
+@model List<CodeHipser.Models.Section>
+@using CodeHipser.Components
+
+@foreach (var item in @Model)
+{
+    if (!item.Children.Any())
+    {
+        <button class="btn btn-link course-item" data-section-id="@item.Id">@item.Name</button>
+    }
+    else
+    {
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="@("#parentId"+item.ParentId)" href="@("#collapse"+item.Id)">@item.Name</a>
+                </h4>
+            </div>
+            <div id="@("collapse"+item.Id)" class="panel-collapse collapse">
+                <div class="panel-body">
+                    @Html.Partial("~/Views/Shared/Components/Navigation/MenuItem.cshtml", item.Children)
+                </div>
+            </div>
+        </div>
+    }
+}

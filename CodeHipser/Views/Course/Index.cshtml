@@ -1,17 +1,29 @@
-@model List<string>
+@model CodeHipser.Models.Course
     @{
     ViewData["Title"] = "Index";
     }
+@using CodeHipser.Components
+<div class="row">
+    <aside class="col-sm-4">
+        <h4>@Model.Name</h4>
+        @await Component.InvokeAsync(nameof(Navigation))
+    </aside>
+    <div id="contentBlock"></div>
+</div>
 
-    <div class="row">
-        <aside class="col-sm-4">
-            <h3>Courses available</h3>
-            <ul class="nav nav-list sidebar-nav">
-                @foreach (var item in @Model)
-            {
-                    <li>@item</li>
-            }
-            </ul>
-        </aside>
-    </div>
+
+
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".course-item").click(function () {
+                var url = '@Url.Action("CourseDetails", "Course")';
+                var sectionId = $(this).attr("data-section-id");
+                $("#contentBlock").load(url, { id: sectionId });
+            });
+        });
+    </script>
+}
+
 

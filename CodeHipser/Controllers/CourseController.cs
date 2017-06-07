@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CodeHipser.Models;
 using CodeHipser.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace CodeHipser.Controllers
 {
@@ -25,8 +26,13 @@ namespace CodeHipser.Controllers
         }
         public IActionResult Index(int id)
         {
-            List<string> sections = (from s in _context.Sections where s.CourseId == id select s.Name).ToList();
-            return View(sections);
+            var course = _context?.Courses?.Include(s => s.Sections)?.SingleOrDefault(x => x.Id == id);
+            return View(course);
+        }
+        public IActionResult CourseDetails(int id)
+        {
+            Section section = _context?.Sections?.Include(c=>c.Children)?.SingleOrDefault(x => x.Id == id);
+            return PartialView(section);
         }
     }
 }

@@ -11,5 +11,11 @@ namespace CodeHipser.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public string Teacher { get; set; }
+
+        public Course()
+        {
+            Sections = new List<Section>();
+        }
+        public virtual ICollection<Section> Sections { get; set; }
     }
 }
