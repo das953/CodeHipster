@@ -85,23 +85,6 @@ namespace CodeHipser.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("CodeHipser.Models.Course", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("Name")
-                        .IsRequired();
-
-                    b.Property<string>("Teacher");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Courses");
-                });
-
             modelBuilder.Entity("CodeHipser.Models.Question", b =>
                 {
                     b.Property<int>("Id")
@@ -128,22 +111,16 @@ namespace CodeHipser.Data.Migrations
 
                     b.Property<string>("Content");
 
-                    b.Property<int>("CourseId");
-
                     b.Property<string>("Description");
 
                     b.Property<string>("Name")
                         .IsRequired();
-
-                    b.Property<int>("Number");
 
                     b.Property<int?>("ParentId");
 
                     b.Property<int>("SectionTypeId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CourseId");
 
                     b.HasIndex("ParentId");
 
@@ -156,8 +133,6 @@ namespace CodeHipser.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Description");
 
                     b.Property<string>("Name")
                         .IsRequired();
@@ -296,7 +271,7 @@ namespace CodeHipser.Data.Migrations
             modelBuilder.Entity("CodeHipser.Models.Answer", b =>
                 {
                     b.HasOne("CodeHipser.Models.Question", "Question")
-                        .WithMany()
+                        .WithMany("Answers")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -304,18 +279,13 @@ namespace CodeHipser.Data.Migrations
             modelBuilder.Entity("CodeHipser.Models.Question", b =>
                 {
                     b.HasOne("CodeHipser.Models.Section", "Section")
-                        .WithMany()
+                        .WithMany("Questions")
                         .HasForeignKey("SectionId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("CodeHipser.Models.Section", b =>
                 {
-                    b.HasOne("CodeHipser.Models.Course", "Course")
-                        .WithMany()
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("CodeHipser.Models.Section", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("ParentId");

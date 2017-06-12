@@ -10,7 +10,6 @@ namespace CodeHipser.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<Course> Courses { get; set; }
         public DbSet<Section> Sections { get; set; }
         public DbSet<SectionType> SectionTypes { get; set; }
         public DbSet<Question> Questions { get; set; }
@@ -49,11 +48,6 @@ namespace CodeHipser.Data
             //Answer entity required fields
             builder.Entity<Answer>()
                 .Property(a => a.AnswerText)
-                .IsRequired();
-
-            //Course entity required fields
-            builder.Entity<Course>()
-                .Property(c => c.Name)
                 .IsRequired();
 
             //Question entity required fields

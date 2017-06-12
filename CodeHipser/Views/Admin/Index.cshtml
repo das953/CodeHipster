@@ -1,0 +1,65 @@
+@model IEnumerable<CodeHipser.Models.Section>
+@{
+    ViewData["Title"] = "Index";
+}
+@section Styles
+{
+    <link rel="stylesheet" href="~/lib/jquery-treegrid/css/jquery.treegrid.css" />
+}
+<h2>Courses Admin</h2>
+@{
+    int? parentId = Model?.FirstOrDefault()?.ParentId;
+}
+<button class="btn btn-primary">Create Root Category</button>
+<table class="tree table table-bordered">
+    <thead>
+        <tr>
+            <th>Section Name</th>
+            <th>Section Type</th>
+            <th>Editing</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var item in @Model)
+            {
+                if (item.ParentId == parentId)
+                {
+                    <tr class="@("treegrid-"+item.Id)">
+                        <td>@item.Name</td>
+                        <td>Additional info</td>
+                        <td>
+                            <button class="btn btn-link">Create</button>
+                            <button class="btn btn-link">Edit</button>
+                            <button class="btn btn-link">Delete</button>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr class="@("treegrid-"+item.Id) @("treegrid-parent-"+item.ParentId)">
+                        <td>@item.Name</td>
+                        <td>Additional info</td>
+                        <td>
+                            <button class="btn btn-link">Create</button>
+                            <button class="btn btn-link">Edit</button>
+                            <button class="btn btn-link">Delete</button>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
+@section Scripts
+{
+    <script type="text/javascript" src="~/lib/jquery-treegrid/js/jquery.treegrid.js"></script>
+    <script type="text/javascript" src="~/lib/jquery-treegrid/js/jquery.treegrid.bootstrap3.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.tree').treegrid();
+        });
+    </script>
+}
+

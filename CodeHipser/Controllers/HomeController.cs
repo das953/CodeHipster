@@ -27,8 +27,9 @@ namespace CodeHipser.Controllers
         }
 
         public IActionResult Index()
-        { 
-            return View(_context.Courses.ToList());
+        {
+            
+            return View();
         }
 
         public IActionResult About()

@@ -26,8 +26,8 @@ namespace CodeHipser.Controllers
         }
         public IActionResult Index(int id)
         {
-            var course = _context?.Courses?.Include(s => s.Sections)?.SingleOrDefault(x => x.Id == id);
-            return View(course);
+            //var course = _context?.Courses?.Include(s => s.Sections)?.SingleOrDefault(x => x.Id == id);
+            return View();
         }
         public IActionResult CourseDetails(int id)
         {

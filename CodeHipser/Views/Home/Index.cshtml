@@ -1,8 +1,11 @@
-﻿@model List<CodeHipser.Models.Course>
+﻿@*@model List<CodeHipser.Models.Course>*@
 @{
     ViewData["Title"] = "Home Page";
 }
-
+@section Styles
+{
+    <link rel="stylesheet" href="~/lib/jqTree/jqtree.css">
+}
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -65,6 +68,14 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
+
+<!-------------------------------Courses Navigation----------------------------------->
+<div class="row">
+    <aside class="col-sm-4">
+        <div id="tree1"></div>
+    </aside>
+</div>
+
 <!--<div class="row">
     <div class="col-md-3">
         <h2>Application uses</h2>
@@ -106,7 +117,25 @@
         </ul>
     </div>
 </div>-->
-<div class="row">
+
+@section Scripts
+{
+    <script src="~/lib/jqTree/tree.jquery.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.getJSON(
+                '/api/Categories/',
+                function (data) {
+                    $('#tree1').tree({
+                        data: data
+                    });
+                }
+            );
+        });
+    </script>
+    
+}
+@*<div class="row">
     <aside class="col-sm-4">
         <h3>Courses available</h3>
         <ul class="nav nav-list sidebar-nav">
@@ -116,4 +145,4 @@
             }
         </ul>
     </aside>
-</div>
+</div>*@
