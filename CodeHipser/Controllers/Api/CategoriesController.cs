@@ -19,16 +19,20 @@ namespace CodeHipser.Controllers.Api
     {
         private ApplicationDbContext _context;
         private readonly IMapper _mapper;
+
+        //Settings of IMapper in file MappingProfile (project root folder)
         public CategoriesController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
+        //Get all sections of type Category including their children (Courses)
+        //Received JSON used for sidebar menu of categories and courses
         [HttpGet]
         public IEnumerable<CategoryDto> GetCategories()
         {
-            //Get all sections of type Category including their children (Courses)
+            
             IEnumerable<Section> categories = _context.Sections.Include(x => x.Children).Where(x => x.SectionTypeId == SectionType.Category).ToList();
             IEnumerable<Section> rootCategories = categories.Where(x => x.ParentId == null).OrderHierarchyBy(x => x.Name).ToList();
 
@@ -41,6 +45,8 @@ namespace CodeHipser.Controllers.Api
             return rootCategoryDtos;
         }
 
+        //Get all lessons of the course with id parameter
+        //Received JSON used for sidebar menu of themes, lessons, content and quizes
         [HttpGet("{id}")]
         public IEnumerable<CategoryDto> GetCourseById(int? id)
         {
@@ -57,7 +63,6 @@ namespace CodeHipser.Controllers.Api
             {
                 lessonDtos.Add(_mapper.Map<CategoryDto>(lesson));
             }
-
             return lessonDtos;
         }
     }

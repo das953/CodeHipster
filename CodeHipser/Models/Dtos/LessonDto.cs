@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace CodeHipser.Models.Dtos
 {
+    //Used for presenting content
     public class LessonDto
     {
         public int Id { get; set; }

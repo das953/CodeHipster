@@ -18,6 +18,8 @@ namespace CodeHipser.Controllers.Api
     {
         private ApplicationDbContext _context;
         private IMapper _mapper;
+
+        //Settings of IMapper in file MappingProfile (project root folder)
         public LessonsController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;

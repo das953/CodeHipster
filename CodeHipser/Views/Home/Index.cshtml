@@ -6,6 +6,7 @@
 {
     <link rel="stylesheet" href="~/lib/jqTree/jqtree.css">
 }
+
 @using CodeHipser.Models
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
@@ -75,7 +76,7 @@
 
     <!-------------------------------Navigation Sidebar----------------------------------->
     <aside class="col-sm-4">
-        <div id="menuTree" data-url="http://localhost:60453/api/Categories.json"></div>
+        <div id="menuTree"></div>
     </aside>
 
     <!---------------------------------Content Block-------------------------------------->
@@ -85,49 +86,6 @@
     </article>
 </div>
 
-
-
-<!--<div class="row">
-    <div class="col-md-3">
-        <h2>Application uses</h2>
-        <ul>
-            <li>Sample pages using ASP.NET Core MVC</li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=518004">Bower</a> for managing client-side libraries</li>
-            <li>Theming using <a href="https://go.microsoft.com/fwlink/?LinkID=398939">Bootstrap</a></li>
-        </ul>
-    </div>
-    <div class="col-md-3">
-        <h2>How to</h2>
-        <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=398600">Add a Controller and View</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699315">Manage User Secrets using Secret Manager.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699316">Use logging to log a message.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699317">Add packages using NuGet.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699318">Add client packages using Bower.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699319">Target development, staging or production environment.</a></li>
-        </ul>
-    </div>
-    <div class="col-md-3">
-        <h2>Overview</h2>
-        <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=518008">Conceptual overview of what is ASP.NET Core</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699320">Fundamentals of ASP.NET Core such as Startup and middleware.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=398602">Working with Data</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=398603">Security</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699321">Client side development</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699322">Develop on different platforms</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699323">Read more on the documentation site</a></li>
-        </ul>
-    </div>
-    <div class="col-md-3">
-        <h2>Run & Deploy</h2>
-        <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=517851">Run your app</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=517853">Run tools such as EF migrations and more</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=398609">Publish to Microsoft Azure Web Apps</a></li>
-        </ul>
-    </div>
-</div>-->
 
 @section Scripts
 {
@@ -154,51 +112,42 @@
                     if (event.node.sectionTypeId==@SectionType.Course) {
                         goToCourse(event.node);
                     }
-                    else if (event.node.sectionTypeId == @SectionType.TextLesson) {
-                        $.ajax({
-                            url: '/api/Lessons/' + event.node.id,
-                            dataType: "json"
-                        }).success(function (data) {
-                            $('#contentBlock').append(data.content);
-                        });
-                        //$("#contentBlock").load('/api/Lessons/' + event.node.id);
+                    else if (event.node.sectionTypeId == @SectionType.TextLesson || event.node.sectionTypeId == @SectionType.VideoLesson) {
+                        goToLesson(event.node);
                     }
-                    else if (event.node.sectionTypeId==@SectionType.Quiz) {
-                        $("#contentBlock").load('/api/Categories/10');
+                    else if (event.node.sectionTypeId == @SectionType.Quiz) {
+                        goToQuiz(event.node);
                     }
                 }
             );
         });
+
+        
         function goToCourse(node) {
             $.ajax({
                 url: '/api/Categories/' + node.id,
                 dataType: 'json',
-                async: true,
                 type: 'GET',
                 success: function (data) {
                     $('#menuTree').tree('loadData', data);
                 }
             });
         }
+
         function goToLesson(node) {
-            $("#contentBlock").load('/api/Categories/12');
-            alert("Lesson!!!!!!!!!!!!!");
+            $.ajax({
+                url: '/api/Lessons/' + node.id,
+                dataType: "json",
+                type: 'GET',
+                success: function (data) {
+                    $('#contentBlock').html(data.content);
+                }
+            });
         }
+
         function goToQuiz(node) {
-            $("#contentBlock").load('/api/Categories/10');
-            alert("Quiz!!!!!!!!!!!!!");
+
         }
     </script>
-    
 }
-@*<div class="row">
-    <aside class="col-sm-4">
-        <h3>Courses available</h3>
-        <ul class="nav nav-list sidebar-nav">
-            @foreach (var item in @Model)
-            {
-                <li><a asp-controller="Course" asp-action="Index" asp-route-id=@item.Id>@item.Name</a></li>
-            }
-        </ul>
-    </aside>
-</div>*@
+

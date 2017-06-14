@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace CodeHipser.Models.Dtos
 {
+    //Used for sidebar navigation menu
     public class CategoryDto
     {
         public int Id { get; set; }

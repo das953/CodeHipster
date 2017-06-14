@@ -26,6 +26,7 @@ namespace CodeHipser.Models.EntityBase
             return parent;
         }
 
+        //Sorting of a hierarchy
         public static IEnumerable<TEntity> OrderHierarchyBy<TEntity, TKey>(this IEnumerable<TEntity> hierarchy, Func<TEntity, TKey> predicate)
         where TEntity : RecursiveEntity<TEntity>
         {
