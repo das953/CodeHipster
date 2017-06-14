@@ -26,24 +26,16 @@ namespace CodeHipser.Models.EntityBase
             return parent;
         }
 
-        public static IEnumerable<TEntity> GetHierarchy<TEntity>(this IQueryable<TEntity> hierarchy, Func<TEntity, bool> rootPredicate)
+        public static IEnumerable<TEntity> OrderHierarchyBy<TEntity, TKey>(this IEnumerable<TEntity> hierarchy, Func<TEntity, TKey> predicate)
         where TEntity : RecursiveEntity<TEntity>
         {
-            IEnumerable<TEntity> children = hierarchy?.Include(c => c.Children)?.Where(rootPredicate).ToList();
-            if(children!=null)
+            IEnumerable<TEntity> sortedHierarchy = hierarchy.OrderBy(predicate).ToList();
+            foreach (TEntity item in sortedHierarchy)
             {
-                foreach (var item in children)
-                {
-                    yield return item;
-                    if (item.Children.Any())
-                    {
-                        foreach (var child in GetHierarchy<TEntity>(hierarchy, x => x.ParentId == item.Id))
-                        {
-                            yield return child;
-                        }
-                    }
-                }
+                if (item.Children != null && item.Children.Any())
+                    item.Children = OrderHierarchyBy(item.Children, predicate).ToList();
             }
+            return sortedHierarchy;
         }
     }
 }

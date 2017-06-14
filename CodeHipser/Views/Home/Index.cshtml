@@ -6,6 +6,7 @@
 {
     <link rel="stylesheet" href="~/lib/jqTree/jqtree.css">
 }
+@using CodeHipser.Models
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -69,12 +70,22 @@
     </a>
 </div>
 
-<!-------------------------------Courses Navigation----------------------------------->
+
 <div class="row">
+
+    <!-------------------------------Navigation Sidebar----------------------------------->
     <aside class="col-sm-4">
-        <div id="tree1"></div>
+        <div id="menuTree" data-url="http://localhost:60453/api/Categories.json"></div>
     </aside>
+
+    <!---------------------------------Content Block-------------------------------------->
+
+    <article id="contentBlock" class="col-sm-8">
+
+    </article>
 </div>
+
+
 
 <!--<div class="row">
     <div class="col-md-3">
@@ -123,15 +134,60 @@
     <script src="~/lib/jqTree/tree.jquery.js"></script>
     <script>
         $(document).ready(function () {
-            $.getJSON(
-                '/api/Categories/',
-                function (data) {
-                    $('#tree1').tree({
-                        data: data
+            $.ajax({
+                url: '/api/Categories/',
+                dataType: 'json',
+                async: true,
+                type: 'GET',
+                success: function (data) {
+                    $('#menuTree').tree({
+                        data: data,
+                        closedIcon: $('<i class="glyphicon glyphicon-chevron-right"></i>'),
+                        openedIcon: $('<i class="glyphicon glyphicon-chevron-down"></i>'),
+                        selectable: false
                     });
+                }
+            });
+            $('#menuTree').bind(
+                'tree.click',
+                function (event) {
+                    if (event.node.sectionTypeId==@SectionType.Course) {
+                        goToCourse(event.node);
+                    }
+                    else if (event.node.sectionTypeId == @SectionType.TextLesson) {
+                        $.ajax({
+                            url: '/api/Lessons/' + event.node.id,
+                            dataType: "json"
+                        }).success(function (data) {
+                            $('#contentBlock').append(data.content);
+                        });
+                        //$("#contentBlock").load('/api/Lessons/' + event.node.id);
+                    }
+                    else if (event.node.sectionTypeId==@SectionType.Quiz) {
+                        $("#contentBlock").load('/api/Categories/10');
+                    }
                 }
             );
         });
+        function goToCourse(node) {
+            $.ajax({
+                url: '/api/Categories/' + node.id,
+                dataType: 'json',
+                async: true,
+                type: 'GET',
+                success: function (data) {
+                    $('#menuTree').tree('loadData', data);
+                }
+            });
+        }
+        function goToLesson(node) {
+            $("#contentBlock").load('/api/Categories/12');
+            alert("Lesson!!!!!!!!!!!!!");
+        }
+        function goToQuiz(node) {
+            $("#contentBlock").load('/api/Categories/10');
+            alert("Quiz!!!!!!!!!!!!!");
+        }
     </script>
     
 }

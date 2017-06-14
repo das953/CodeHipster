@@ -20,8 +20,9 @@ namespace CodeHipser.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Section> hierarchy = _context?.Sections?.Where(x=>x.SectionTypeId==SectionType.Category)?.OrderBy(x=>x.Name).GetHierarchy(x=>x.ParentId==null).ToList();
-            return View(hierarchy);
+            IEnumerable<Section> hierarchy = _context?.Sections?.Include(x=>x.Children).OrderHierarchyBy(x=>x.Name).ToList();
+            IEnumerable<Section> rootHierarchy = hierarchy.Where(x => x.ParentId == null).ToList();
+            return View(rootHierarchy);
         }
     }
 }

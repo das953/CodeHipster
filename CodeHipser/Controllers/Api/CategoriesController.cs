@@ -8,6 +8,8 @@ using CodeHipser.Data;
 using CodeHipser.Models;
 using CodeHipser.Models.Dtos;
 using CodeHipser.Models.EntityBase;
+using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace CodeHipser.Controllers.Api
 {
@@ -16,36 +18,47 @@ namespace CodeHipser.Controllers.Api
     public class CategoriesController : Controller
     {
         private ApplicationDbContext _context;
-        public CategoriesController(ApplicationDbContext context)
+        private readonly IMapper _mapper;
+        public CategoriesController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
+
         [HttpGet]
         public IEnumerable<CategoryDto> GetCategories()
         {
-            IEnumerable<Section> categories = _context?.Sections?.Where(x => x.SectionTypeId == SectionType.Category)?.OrderBy(x => x.Name).GetHierarchy(x => x.ParentId == null).ToList();
-            List<CategoryDto> categoryDtos = new List<CategoryDto>();
-            foreach (var item in categories)
+            //Get all sections of type Category including their children (Courses)
+            IEnumerable<Section> categories = _context.Sections.Include(x => x.Children).Where(x => x.SectionTypeId == SectionType.Category).ToList();
+            IEnumerable<Section> rootCategories = categories.Where(x => x.ParentId == null).OrderHierarchyBy(x => x.Name).ToList();
+
+            //Get root categoryDtos
+            List<CategoryDto> rootCategoryDtos = new List<CategoryDto>();
+            foreach (var category in rootCategories)
             {
-                if (item.ParentId == null)
-                    categoryDtos.Add(MapSectionToCategoryDto(item));
+                rootCategoryDtos.Add(_mapper.Map<CategoryDto>(category));
             }
-            return categoryDtos;
+            return rootCategoryDtos;
         }
 
-        private CategoryDto MapSectionToCategoryDto(Section section)
+        [HttpGet("{id}")]
+        public IEnumerable<CategoryDto> GetCourseById(int? id)
         {
-            CategoryDto category = new CategoryDto
+            Section course = _context.Sections.Include(x => x.SectionType).SingleOrDefault(x => x.Id == id);
+            if (course == null || course.SectionTypeId != SectionType.Course)
+                NotFound();
+
+            IEnumerable<Section> lessons = _context.Sections.Include(x=>x.SectionType).Include(x => x.Children).ToList();
+            IEnumerable<Section> rootLessons = lessons?.Where(x => x.ParentId == id).OrderHierarchyBy(x => x.Name).ToList();
+
+            //Get root lessonDtos
+            List<CategoryDto> lessonDtos = new List<CategoryDto>();
+            foreach (var lesson in rootLessons)
             {
-                Id = section.Id,
-                Name = section.Name,
-                Children = new List<CategoryDto>()
-            };
-            foreach (var item in section.Children)
-            {
-                category.Children.Add(MapSectionToCategoryDto(item));
+                lessonDtos.Add(_mapper.Map<CategoryDto>(lesson));
             }
-            return category;
+
+            return lessonDtos;
         }
     }
 }

@@ -28,7 +28,6 @@ namespace CodeHipser.Controllers
 
         public IActionResult Index()
         {
-            
             return View();
         }
 
