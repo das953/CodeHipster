@@ -1,0 +1,39 @@
+@model CodeHipser.ViewModels.CategoryFormViewModel
+@{
+    ViewData["Title"] = "NewCategory";
+}
+
+<h2>New Category</h2>
+<form asp-action="NewCategory" method="post" asp-antiforgery="true">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Section.Name"></label>
+        <input asp-for="Section.Name" class="form-control">
+        <span asp-validation-for="Section.Name" class="text-danger"></span>
+    </div>
+<div class="form-group">
+    <label asp-for="Section.Description"></label>
+    <textarea asp-for="Section.Description" rows="5" cols="40" class="form-control category-description"></textarea>
+</div>
+    @{
+    if(Model.SectionTypes.Count==1)
+    {
+        Model.Section.SectionTypeId = Model.SectionTypes[0].Id;
+        <input type="hidden" asp-for="Section.SectionTypeId">
+    }
+    else
+    {
+        <div class="form-group">
+            <label asp-for="Section.SectionTypeId"></label>
+            <select asp-for="Section.SectionTypeId" asp-items="@(new SelectList(Model.SectionTypes,"Id","Name"))" class="form-control">
+                <option selected="selected" disabled="disabled">Select type</option>
+            </select>
+        </div>
+    }
+}
+
+<input type="hidden" asp-for="Section.Id">
+<input type="hidden" asp-for="Section.ParentId">
+<button type="submit" class="btn btn-primary">Save</button>
+</form>
+

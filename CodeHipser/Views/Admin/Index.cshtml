@@ -7,10 +7,9 @@
     <link rel="stylesheet" href="~/lib/jquery-treegrid/css/jquery.treegrid.css" />
 }
 <h2>Courses Admin</h2>
-@{
-    int? parentId = Model?.FirstOrDefault()?.ParentId;
-}
-<button class="btn btn-primary">Create Root Category</button>
+
+<button class="btn btn-primary" onclick="location.href='Admin/NewCategory'">Create Root Category</button>
+
 <table class="tree table table-bordered">
     <thead>
         <tr>
@@ -24,13 +23,13 @@
         {
             @foreach (var item in @Model)
             {
-                if (item.ParentId == parentId)
+                if (item.ParentId == null)
                 {
                     <tr class="@("treegrid-"+item.Id)">
                         <td>@item.Name</td>
-                        <td>Additional info</td>
+                        <td>@item.SectionType.Name</td>
                         <td>
-                            <button class="btn btn-link">Create</button>
+                            <a asp-action="NewCategory" asp-route-id="@item.Id">Create</a>
                             <button class="btn btn-link">Edit</button>
                             <button class="btn btn-link">Delete</button>
                         </td>
@@ -40,9 +39,9 @@
                 {
                     <tr class="@("treegrid-"+item.Id) @("treegrid-parent-"+item.ParentId)">
                         <td>@item.Name</td>
-                        <td>Additional info</td>
+                        <td>@item.SectionType.Name</td>
                         <td>
-                            <button class="btn btn-link">Create</button>
+                            <a asp-action="NewCategory" asp-route-id="@item.Id">Create</a>
                             <button class="btn btn-link">Edit</button>
                             <button class="btn btn-link">Delete</button>
                         </td>
@@ -61,5 +60,6 @@
             $('.tree').treegrid();
         });
     </script>
+    
 }
 

@@ -33,10 +33,38 @@ namespace CodeHipser.Models.EntityBase
             IEnumerable<TEntity> sortedHierarchy = hierarchy.OrderBy(predicate).ToList();
             foreach (TEntity item in sortedHierarchy)
             {
+                yield return item;
                 if (item.Children != null && item.Children.Any())
                     item.Children = OrderHierarchyBy(item.Children, predicate).ToList();
             }
-            return sortedHierarchy;
         }
+
+        public static IEnumerable<TEntity> Parents<TEntity>(TEntity node)
+        where TEntity : RecursiveEntity<TEntity>
+        {
+            TEntity parent = node.Parent;
+            if(parent!=null)
+            {
+                yield return parent;
+                Parents(parent);
+            }
+        }
+
+        public static IEnumerable<TEntity> FlattenHierarchy<TEntity>(this IEnumerable<TEntity> hierarchy)
+        where TEntity : RecursiveEntity<TEntity>
+        {
+            IEnumerable<TEntity> flatHierarchy = hierarchy.ToList();
+            foreach (TEntity item in flatHierarchy)
+            {
+                yield return item;
+                if (item.Children != null && item.Children.Any())
+                    foreach (var child in FlattenHierarchy(item.Children))
+                    {
+                        yield return child;
+                    }
+            }
+        }
+
+
     }
 }

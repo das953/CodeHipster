@@ -2,25 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CodeHipser.Models.EntityBase;
-using System.ComponentModel.DataAnnotations;
 
-namespace CodeHipser.Models
+namespace CodeHipser.Models.Dtos
 {
-    public class Section : RecursiveEntity<Section>
+    public class SectionDto
     {
-        [Required]
         public string Name { get; set; }
         public string Description { get; set; }
         public string Content { get; set; }
 
-        [Required]
         public int SectionTypeId { get; set; }
-        public virtual SectionType SectionType { get; set; }
+        public SectionTypeDto SectionTypeDto { get; set; }
 
-        public Section()
+        public ICollection<SectionDto> Children { get; set; }
+
+        public SectionDto()
         {
-            Children = new List<Section>();
+            Children = new List<SectionDto>();
             Questions = new List<Question>();
             StudentProgress = new List<StudentProgress>();
         }
