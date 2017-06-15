@@ -54,3 +54,29 @@ textarea {
         display: none;
     }
 }
+
+.jqtree_common {
+    /*position: absolute;*/
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    /*display: none;*/
+    /*float: left;*/
+    /*min-width: 160px;*/
+    padding: 5px 0;
+    margin: 2px 0 0;
+    list-style: none;
+    font-size: 14px;
+    text-align: left;
+    /*background-color: #3a3f44;*/
+    
+    
+    /*box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);*/
+    background-clip: padding-box;
+    line-height: 1.42857143;
+}
+
+.jqtree-element{
+border: 1px solid rgba(0, 0, 0, 0.15);
+border-radius: 4px;
+}
