@@ -52,12 +52,14 @@ namespace CodeHipser.Controllers
             return View();
         }
 
-        public IActionResult Quiz(QuizDto quiz)
+        public IActionResult Quiz(int ID)
         {
-
+            
             ViewData["Greeting"] = "Hello";
             ViewData["Message"] = "Try to pass this quiz, Good luck :)";
-            return View(quiz.Questions.FirstOrDefault());
+            var _currentQuiz = RedirectToAction($@"/api/Quiz/"+ID);
+            //quizDTO.Questions.FirstOrDefault()
+            return View();
         }
     }
 }

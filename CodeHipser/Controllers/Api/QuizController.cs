@@ -9,6 +9,7 @@ using CodeHipser.Models.Dtos;
 using AutoMapper;
 using CodeHipser.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace CodeHipser.Controllers.Api
 {
@@ -29,15 +30,42 @@ namespace CodeHipser.Controllers.Api
             _mapper = mapper;
         }
 
+        //old get
+        //[HttpGet("{id}")]
+        //public IActionResult Quiz(int? id = null)
+        //{
+
+        //    if (id == null) return null;
+
+        //    Section quiz = _context.Sections.Include(x => x.SectionType).Include(x => x.Parent).SingleOrDefault(x => x.Id == id);
+
+        //    if (quiz == null || quiz.SectionType.ParentId != SectionType.Theme)
+        //        NotFound();
+
+        //    QuizDto quizDto = _mapper.Map<QuizDto>(quiz);
+
+        //    var questions =
+        //        _context.Questions.
+        //        Where(x => x.SectionId == id).
+        //        Include(x => x.Answers);
+
+        //    foreach (var question in questions)
+        //    {
+        //        quizDto.Questions.Add(question);
+        //    }
+
+
+        //    return RedirectToAction($@"Quiz", "Home", new { ID = id });
+        //    // return null;
+        //}
 
         [HttpGet("{id}")]
-        public IActionResult Quiz(int? id=null)
+        public QuizDto GetQuiz(int? id = null)
         {
-
             if (id == null) return null;
 
             Section quiz = _context.Sections.Include(x => x.SectionType).Include(x => x.Parent).SingleOrDefault(x => x.Id == id);
-            
+
             if (quiz == null || quiz.SectionType.ParentId != SectionType.Theme)
                 NotFound();
 
@@ -50,11 +78,9 @@ namespace CodeHipser.Controllers.Api
 
             foreach (var question in questions)
             {
-                quizDto.Questions.Add(_mapper.Map<QuestionDto>(question));
-            }     
-
-            return RedirectToAction($@"Quiz", "Home", new { quiz = quizDto });
-           // return null;
+                quizDto.Questions.Add(question);
+            }
+            return quizDto;
         }
     }
 }

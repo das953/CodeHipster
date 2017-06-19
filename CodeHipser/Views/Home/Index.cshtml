@@ -156,7 +156,7 @@
 
         function goToQuiz(node) {
             $.ajax({
-                url: '/api/Quiz/' + node.id,
+                url: '/Home/Quiz/' + node.id,
                 dataType: "html",
                 type: 'GET',
                 success: function (data) {

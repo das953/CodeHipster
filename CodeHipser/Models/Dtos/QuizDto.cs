@@ -14,11 +14,11 @@ namespace CodeHipser.Models.Dtos
         public int ParentId { get; set; }
         public CategoryDto Parent { get; set; }
 
-        public virtual ICollection<QuestionDto> Questions { get; set; }
+        public virtual ICollection<Question> Questions { get; set; }
 
         public QuizDto()
         {
-            Questions = new List<QuestionDto>();
+            Questions = new List<Question>();
         }
 
     }
