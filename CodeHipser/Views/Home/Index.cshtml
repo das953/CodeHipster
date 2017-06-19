@@ -75,24 +75,39 @@
 <div class="row">
 
     <!-------------------------------Navigation Sidebar----------------------------------->
-    <aside class="col-sm-4">
-        <div id="menuTree" class="classDropDown"></div>
-    </aside>
-
+    <div class="scroll  col-sm-4">
+        <aside>
+            <div id="menuTree"></div>
+        </aside>
+    </div >
 
 
     <!---------------------------------Content Block-------------------------------------->
+    <div class="classcontentblock1 col-sm-7" >
+        @{await Html.RenderPartialAsync("_GetMessage");}
 
-    <article id="contentBlock" class="col-sm-8">
+    </div>  
 
+    <div class="classcontentblock1 col-sm-7">
+        @{await Html.RenderPartialAsync("_GetStatus");}
+
+    </div>
+
+    <article id="contentBlock" class="classcontentblock col-sm-7  scroll">
+        55555
     </article>
 </div>
+
+
 
 
 @section Scripts
 {
     <script src="~/lib/jqTree/tree.jquery.js"></script>
     <script>
+
+
+
         $(document).ready(function () {
             $.ajax({
                 url: '/api/Categories/',

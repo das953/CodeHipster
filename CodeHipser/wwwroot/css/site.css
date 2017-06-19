@@ -1,6 +1,8 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: snow;
+    
 }
 
 /* Wrapping element */
@@ -56,13 +58,12 @@ textarea {
 }
 
 .jqtree_common {
-    /*position: absolute;*/
+   
     top: 100%;
     left: 0;
     z-index: 1000;
-    /*display: none;*/
-    /*float: left;*/
-    /*min-width: 160px;*/
+     /*float: left;*/
+    
     padding: 5px 0;
     margin: 2px 0 0;
     list-style: none;
@@ -70,13 +71,101 @@ textarea {
     text-align: left;
     /*background-color: #3a3f44;*/
     
-    
-    /*box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);*/
-    background-clip: padding-box;
     line-height: 1.42857143;
+    
 }
 
-.jqtree-element{
-border: 1px solid rgba(0, 0, 0, 0.15);
-border-radius: 4px;
+.jqtree-element {
+    border: 3px solid;
+    border-color:aliceblue;
+    border-radius: 4px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    background-color: lightgrey;
+    background-clip: padding-box;
+    
 }
+
+
+
+ul.jqtree-tree ul.jqtree_common ul.jqtree_common li.jqtree_common:hover .jqtree-element {
+    background-color: darkgray;
+}
+
+
+
+
+.jqtree-title{
+    text-align: left;
+    
+}
+
+.classcontentblock {
+
+    padding: 5px 0;
+    text-align: center;
+    line-height: 1.42857143;
+    border: 3px solid;
+    border-color: aliceblue;
+    border-radius: 4px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    background-clip: padding-box;
+}
+
+.classcontentblock1 {
+    margin-top: 50px;
+    padding: 5px 0;
+    text-align: center;
+    line-height: 1.42857143;
+    border: 3px solid;
+    border-color: aliceblue;
+    border-radius: 4px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    background-clip: padding-box;
+    display:none;
+
+}
+
+ul.jqtree-tree .jqtree-title{
+color: darkblue;
+}
+
+.scroll {
+    margin-top: 50px;
+    overflow: hidden;
+    overflow-y: initial;
+    height: 500px;
+    
+}
+
+    .scroll.classcontentblock {
+        margin-top: 70px;
+    }
+    .col-sm-7 {
+    
+    float: right;
+}
+
+
+.navbar-inverse {
+    background-color: #5782b7;
+    border-color: #1967be;
+}
+
+.navbar {
+    min-height: 100px;
+}
+
+
+
+
+footer {
+    background-color: #49494b;
+    font-weight: 300;
+    color: #eaeaea;
+}
+
+    footer .container {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+
