@@ -14,11 +14,16 @@ namespace CodeHipser.Controllers
     public class HomeController : Controller
     {
         private ApplicationDbContext _context;
-        public HomeController(ApplicationDbContext context)
+        private readonly IMapper _mapper;
+
+        public HomeController(
+            ApplicationDbContext context,
+            IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
-
+         
         protected override void Dispose(bool disposing)
         {
             if(disposing)
@@ -57,9 +62,32 @@ namespace CodeHipser.Controllers
             
             ViewData["Greeting"] = "Hello";
             ViewData["Message"] = "Try to pass this quiz, Good luck :)";
-            var _currentQuiz = RedirectToAction($@"/api/Quiz/"+ID);
+            var _currentQuiz = GetQuiz(ID);
             //quizDTO.Questions.FirstOrDefault()
-            return View();
+            return PartialView(_currentQuiz);
+        }
+
+        public QuizDto GetQuiz(int? id = null)
+        {
+            if (id == null) return null;
+
+            Section quiz = _context.Sections.Include(x => x.SectionType).Include(x => x.Parent).SingleOrDefault(x => x.Id == id);
+
+            if (quiz == null || quiz.SectionType.ParentId != SectionType.Theme)
+                NotFound();
+
+            QuizDto quizDto = _mapper.Map<QuizDto>(quiz);
+
+            var questions =
+                _context.Questions.
+                Where(x => x.SectionId == id).
+                Include(x => x.Answers);
+
+            foreach (var question in questions)
+            {
+                quizDto.Questions.Add(question);
+            }
+            return quizDto;
         }
     }
 }

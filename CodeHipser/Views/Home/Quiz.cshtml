@@ -1,24 +1,25 @@
-@model CodeHipser.Models.Question
+@model CodeHipser.Models.Dtos.QuizDto
 @{
     ViewData["Title"] = "Quiz";
-    
+var tt = 0;
+
 }
 
 
 
-    <div>@Model.QuestionText</div>
-    <div>
-        @foreach (var answer in Model.Answers)
-        {
-
-            
-            <input type="radio" name="answer"/><span>@answer.AnswerText</span>
+<div>@Model.Questions.First().QuestionText</div>
+<div>
+    @foreach (var answer in Model.Questions.FirstOrDefault().Answers)
+    {
 
 
-        }
-    </div>
-    
-    <div>@ViewBag.Greeting</div>
+        <input type="radio" name="answer" /><span>@answer.AnswerText</span>
+
+
+    }
+</div>
+
+<div>@ViewBag.Greeting</div>
 
 
 
