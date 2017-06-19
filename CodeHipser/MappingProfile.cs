@@ -15,6 +15,9 @@ namespace CodeHipser
             CreateMap<Section, CategoryDto>();
             CreateMap<Section, LessonDto>();
             CreateMap<Section, SectionDto>();
+            CreateMap<Section, QuizDto>();
+            CreateMap<Question, QuestionDto>();
+            //CreateMap<>
         }
     }
 }

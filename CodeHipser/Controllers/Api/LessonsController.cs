@@ -29,8 +29,8 @@ namespace CodeHipser.Controllers.Api
         public LessonDto GetLessonById(int? id)
         {
             Section lesson = _context.Sections.Include(x => x.SectionType).SingleOrDefault(x => x.Id == id);
-            if (lesson == null || lesson.SectionType.ParentId != SectionType.Course)
-                NotFound();
+            if (lesson == null || lesson.SectionType.ParentId != SectionType.Lesson)
+              return null;
             LessonDto lessonDto = _mapper.Map<LessonDto>(lesson);
 
             return lessonDto;

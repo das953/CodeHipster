@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using CodeHipser.Models;
 using CodeHipser.Data;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using CodeHipser.Models.Dtos;
 
 namespace CodeHipser.Controllers
 {
@@ -48,6 +50,14 @@ namespace CodeHipser.Controllers
         public IActionResult Error()
         {
             return View();
+        }
+
+        public IActionResult Quiz(QuizDto quiz)
+        {
+
+            ViewData["Greeting"] = "Hello";
+            ViewData["Message"] = "Try to pass this quiz, Good luck :)";
+            return View(quiz.Questions.FirstOrDefault());
         }
     }
 }

@@ -128,7 +128,17 @@
                 dataType: 'json',
                 type: 'GET',
                 success: function (data) {
-                    $('#menuTree').tree('loadData', data);
+
+                    if (data == null) {
+
+                        $('#contentBlock').html("Only authorized users have access to course materials");
+                    }
+                    else {
+                        $('#menuTree').tree('loadData', data);
+
+                    }
+
+                   
                 }
             });
         }
@@ -145,7 +155,26 @@
         }
 
         function goToQuiz(node) {
-
+            $.ajax({
+                url: '/api/Quiz/' + node.id,
+                dataType: "html",
+                type: 'GET',
+                success: function (data) {
+                    console.log(data);
+                    if (data == null) {
+                        
+                        $('#contentBlock').html("Oooops :\\ psina");
+                    }
+                    else {
+                        //console.log(data);
+                        $('#contentBlock').html(data);
+                       
+                    }
+                   
+                }
+                
+            });
+           // $('#contentBlock').html("<div>Oooops :\\</div>");
         }
     </script>
 }
