@@ -15,6 +15,9 @@
   <ItemGroup>
     <Content Include="wwwroot\css\cosmo.css" />
     <Content Include="wwwroot\images\Welcome to Vectr.png" />
+    <Content Include="wwwroot\lib\jquery\jquery.cookie\.bower.json" />
+    <Content Include="wwwroot\lib\jquery\jquery.cookie\bower.json" />
+    <Content Include="wwwroot\lib\jquery\jquery.cookie\jquery.cookie.js" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="6.0.2" />

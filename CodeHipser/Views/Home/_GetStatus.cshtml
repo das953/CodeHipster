@@ -1,0 +1,12 @@
+
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<td>
+    <input type="checkbox" class="updateDate" />
+    <asp:Label runat="server" Text='<%# ((DateTime)Eval("updateDate")).ToShortDateString() %>'></asp:Label>
+    <asp:TextBox ID="txtUpdateDate" CssClass="hide" runat="server" Text='<%# Bind("updateDate") %>' />
+</td>
+
+<asp:LinkButton ID="SaveList" runat="server" OnClientClick="return UpdateDates();"
+                CommandName="Update" OnCommand="OnSaveAll_Command">Сохранить все</asp:LinkButton>

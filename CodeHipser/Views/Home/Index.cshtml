@@ -8,7 +8,7 @@
 }
 
 @using CodeHipser.Models
-<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
+@*<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
         <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -69,28 +69,45 @@
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
     </a>
-</div>
+</div>*@
 
 
 <div class="row">
 
     <!-------------------------------Navigation Sidebar----------------------------------->
-    <aside class="col-sm-4">
-        <div id="menuTree"></div>
-    </aside>
+    <div class="scroll  col-sm-4">
+        <aside>
+            <div id="menuTree"></div>
+        </aside>
+    </div >
 
-    <!---------------------------------Content Block-------------------------------------->
 
-    <article id="contentBlock" class="col-sm-8">
+    <!---------------------------------Content Block1-------------------------------------->
+    <div class="classcontentblock1 col-sm-7" >
+        @{await Html.RenderPartialAsync("_GetMessage");}
 
+    </div>  
+
+    <div class="classcontentblock1 col-sm-7">
+        @{await Html.RenderPartialAsync("_GetStatus");}
+
+    </div>
+
+    <article id="contentBlock" class="classcontentblock col-sm-7  scroll">
+        55555
     </article>
 </div>
+
+
 
 
 @section Scripts
 {
     <script src="~/lib/jqTree/tree.jquery.js"></script>
     <script>
+
+
+
         $(document).ready(function () {
             $.ajax({
                 url: '/api/Categories/',
