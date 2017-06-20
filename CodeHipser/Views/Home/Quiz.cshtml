@@ -1,25 +1,44 @@
 @model CodeHipser.Models.Dtos.QuizDto
 @{
     ViewData["Title"] = "Quiz";
-var tt = 0;
+    var _currentCount = 0;
+    var _totalCount = 0;
+    var _succesessCount = 0;
+    var _questions = Model.Questions.ToList();
 
 }
 
 
 
-<div>@Model.Questions.First().QuestionText</div>
-<div>
-    @foreach (var answer in Model.Questions.FirstOrDefault().Answers)
-    {
+
+    <div>
+        @await Component.InvokeAsync("QuizQuestion", new
+   {
+       currentQuestion = _questions[0],
+       currentCount = _currentCount,
+       totalCount = _totalCount,
+       themeName = Model.Parent.Name
+   })
+    </div>
+
+    <br/>
+
+    <div class="row">
 
 
-        <input type="radio" name="answer" /><span>@answer.AnswerText</span>
+        <div style="text-align:left; padding:0" class="col-md-6">
+            <button class="btn-default">Previous</button>
+        </div>
+
+        <div style="text-align:right; padding:0" class="col-md-6">
+            <button class="btn-default">Next</button>
+        </div>
 
 
-    }
-</div>
 
-<div>@ViewBag.Greeting</div>
+    </div>
+
+ 
 
 
 

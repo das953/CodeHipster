@@ -42,6 +42,7 @@
   <ItemGroup>
     <Folder Include="Views\Shared\Components\Navigation\" />
     <Folder Include="Views\Admin\" />
+    <Folder Include="Views\Shared\Components\QuizQuestion\" />
   </ItemGroup>
 
 </Project>

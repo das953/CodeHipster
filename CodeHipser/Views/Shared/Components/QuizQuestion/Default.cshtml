@@ -1,0 +1,20 @@
+@model CodeHipser.Models.Question
+
+<div class="row">
+    <h2 style="text-align:right" class="col-md-7">@ViewBag.themeName</h2>
+    <h2 style="text-align:right" class="col-md-4">@ViewBag.currentCount/@ViewBag.totalCount</h2>
+</div>
+
+
+<div class="row" style="text-align:left; word-wrap:break-word">@Model.QuestionText</div>
+<br/>
+
+<div class="row">
+    @foreach (var answer in Model.Answers)
+    {
+        <input type="radio" name="answer" />@answer.AnswerText<br/>
+    }
+</div>
+
+
+
