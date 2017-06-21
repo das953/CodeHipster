@@ -1,6 +1,5 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+
     background-color: snow;
     
 }
@@ -87,7 +86,7 @@ textarea {
 
 
 ul.jqtree-tree ul.jqtree_common ul.jqtree_common li.jqtree_common:hover .jqtree-element {
-    background-color: darkgray;
+    background-color: burlywood;
 }
 
 
@@ -125,7 +124,7 @@ ul.jqtree-tree ul.jqtree_common ul.jqtree_common li.jqtree_common:hover .jqtree-
 }
 
 ul.jqtree-tree .jqtree-title{
-color: darkblue;
+color: #333333;
 }
 
 .scroll {
