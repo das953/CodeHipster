@@ -8,10 +8,10 @@
 
 }
 
+   
 
-
-
-    <div>
+<div style="max-width:100%; width:100%; padding:5%">
+    <div class="row">
         @await Component.InvokeAsync("QuizQuestion", new
    {
        currentQuestion = _questions[0],
@@ -21,9 +21,9 @@
    })
     </div>
 
-    <br/>
+    <br />
 
-    <div class="row">
+    @*<div class="row">
 
 
         <div style="text-align:left; padding:0" class="col-md-6">
@@ -36,11 +36,11 @@
 
 
 
-    </div>
-
- 
+    </div>*@
 
 
+
+</div>
 
 
 

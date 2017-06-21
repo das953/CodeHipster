@@ -1,8 +1,7 @@
-﻿body {
+﻿﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
     background-color: snow;
-    
 }
 
 /* Wrapping element */
@@ -46,13 +45,7 @@ textarea {
 
 /*-----------------------------------------Sidebar Navigation----------------------------------------------*/
 
-/*--------------------------------------------Admin Panel--------------------------------------------------*/
-.gfr{
-    color: red;
-}
-.category-description{
-    min-width: 50%;
-}
+
 
 /*-----------------------------------------Media Queries---------------------------------------------------*/
 /* Hide/rearrange for smaller screens */
@@ -64,31 +57,26 @@ textarea {
 }
 
 .jqtree_common {
-   
     top: 100%;
     left: 0;
     z-index: 1000;
-     /*float: left;*/
-    
+    /*float: left;*/
     padding: 5px 0;
     margin: 2px 0 0;
     list-style: none;
     font-size: 14px;
     text-align: left;
     /*background-color: #3a3f44;*/
-    
     line-height: 1.42857143;
-    
 }
 
 .jqtree-element {
     border: 3px solid;
-    border-color:aliceblue;
+    border-color: aliceblue;
     border-radius: 4px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
     background-color: lightgrey;
     background-clip: padding-box;
-    
 }
 
 
@@ -100,13 +88,11 @@ ul.jqtree-tree ul.jqtree_common ul.jqtree_common li.jqtree_common:hover .jqtree-
 
 
 
-.jqtree-title{
+.jqtree-title {
     text-align: left;
-    
 }
 
 .classcontentblock {
-
     padding: 5px 0;
     text-align: center;
     line-height: 1.42857143;
@@ -127,12 +113,11 @@ ul.jqtree-tree ul.jqtree_common ul.jqtree_common li.jqtree_common:hover .jqtree-
     border-radius: 4px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
     background-clip: padding-box;
-    display:none;
-
+    /*display: none;*/
 }
 
-ul.jqtree-tree .jqtree-title{
-color: darkblue;
+ul.jqtree-tree .jqtree-title {
+    color: darkblue;
 }
 
 .scroll {
@@ -140,14 +125,13 @@ color: darkblue;
     overflow: hidden;
     overflow-y: initial;
     height: 500px;
-    
 }
 
     .scroll.classcontentblock {
         margin-top: 70px;
     }
-    .col-sm-7 {
-    
+
+.col-sm-7 {
     float: right;
 }
 
@@ -174,4 +158,3 @@ footer {
         padding-top: 30px;
         padding-bottom: 30px;
     }
-

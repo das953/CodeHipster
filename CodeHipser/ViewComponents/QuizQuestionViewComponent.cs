@@ -8,19 +8,32 @@ using CodeHipser.Models;
 
 namespace CodeHipser.ViewComponents
 {
+    [ViewComponent]
     public class QuizQuestionViewComponent : ViewComponent
     {
-        public async Task<IViewComponentResult> InvokeAsync(
-            Question currentQuestion, 
-            int currentCount, 
-            int totalCount,
+        //глянути
+        //paging VC 
+        //view state
+        //msvs go to all
+
+        //public IViewComponentResult InvokeAsync(
+        //    Question currentQuestion, 
+        //    int currentCount, 
+        //    int totalCount,
+        //    string themeName)
+              public IViewComponentResult InvokeAsync(
             string themeName)
         {
-            ViewData["currentCount"] = currentCount;
-            ViewData["totalCount"] = totalCount;
+            //ViewData["currentCount"] = currentCount;
+            //ViewData["totalCount"] = totalCount;
+            //ViewData["themeName"] = themeName;
+            //return (IViewComponentResult)View("Default", currentQuestion);
+
+            ViewData["currentCount"] = 1;
+            ViewData["totalCount"] = 10;
             ViewData["themeName"] = themeName;
-            return View(currentQuestion);
-           
+            return (IViewComponentResult)View("Default", new Question { Id = 4});
+
         }
     }
 }
