@@ -77,12 +77,11 @@ textarea {
 
 .jqtree-element {
     border: 3px solid;
-    border-color:aliceblue;
+    border-color: #FFEB3B;
     border-radius: 4px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-    background-color: lightgrey;
+    background-color: ivory;
     background-clip: padding-box;
-    
 }
 
 
@@ -100,15 +99,15 @@ ul.jqtree-tree ul.jqtree_common ul.jqtree_common li.jqtree_common:hover .jqtree-
 }
 
 .classcontentblock {
-
     padding: 5px 0;
     text-align: center;
     line-height: 1.42857143;
     border: 3px solid;
-    border-color: aliceblue;
+    border-color: #FFEB3B;
     border-radius: 4px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
     background-clip: padding-box;
+    background-color: ivory;
 }
 
 .classcontentblock1 {
@@ -117,12 +116,12 @@ ul.jqtree-tree ul.jqtree_common ul.jqtree_common li.jqtree_common:hover .jqtree-
     text-align: center;
     line-height: 1.42857143;
     border: 3px solid;
-    border-color: aliceblue;
+    border-color: #FFEB3B;
     border-radius: 4px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
     background-clip: padding-box;
-    display:none;
-
+    /*display: none;*/
+    background-color: ivory;
 }
 
 ul.jqtree-tree .jqtree-title{
@@ -147,8 +146,8 @@ color: darkblue;
 
 
 .navbar-inverse {
-    background-color: #5782b7;
-    border-color: #1967be;
+    background-color: rgba(255, 193, 7, 0.61);
+    border-color: goldenrod;
 }
 
 .navbar {
@@ -159,7 +158,7 @@ color: darkblue;
 
 
 footer {
-    background-color: #49494b;
+    background-color: #8A6541;
     font-weight: 300;
     color: #eaeaea;
 }

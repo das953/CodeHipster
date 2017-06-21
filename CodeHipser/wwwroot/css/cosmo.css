@@ -1861,6 +1861,7 @@ pre {
 }
 
 .row {
+    margin-top: 50px;
     margin-left: -15px;
     margin-right: -15px
 }
@@ -4990,7 +4991,7 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
     }
 
     .navbar-inverse .navbar-nav > li > a {
-        color: #ffffff
+        color: #333333
     }
 
         .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
