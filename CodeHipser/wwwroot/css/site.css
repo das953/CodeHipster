@@ -17,7 +17,7 @@ textarea {
     max-width: 280px;
 }
 
-/* Carousel */
+/*-----------------------------------------------Carousel-------------------------------------------------*/
 .carousel-caption p {
     font-size: 20px;
     line-height: 1.4;
@@ -41,6 +41,39 @@ textarea {
     width: 100%;
 }
 
+
+/*-----------------------------------------Sidebar Navigation----------------------------------------------*/
+
+/*--------------------------------------------Admin Panel--------------------------------------------------*/
+.form-description{
+    min-width: 50%;
+}
+.form-content {
+    min-width: 80%;
+}
+.admin-nav-panel{
+    margin-bottom: 20px;
+}
+.question-button{
+    margin-bottom: 10px;
+    margin-right: 10px;
+    display: inline-block;
+}
+#answer-button {
+    margin-bottom: 10px;
+    margin-right: 10px;
+    display: inline-block;
+}
+.form-region {
+    margin-bottom: 20px;
+}
+.form-control .input-validation-error{
+    color: red;
+}
+.admin-nav-panel{
+    margin-top: 20px;
+}
+/*-----------------------------------------Media Queries---------------------------------------------------*/
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
     /* Hide captions */

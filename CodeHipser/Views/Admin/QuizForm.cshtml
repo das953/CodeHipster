@@ -1,0 +1,123 @@
+@model CodeHipser.ViewModels.SectionViewModel
+@{
+    ViewData["Title"] = "QuizForm";
+}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <button class="btn btn-success" onclick="location.href='@Url.Action("Edit", "Admin", new { id = Model.SectionDto.ParentId})'">Back</button>
+        <button class="btn btn-success" onclick="location.href='@Url.Action("Index", "Admin")'">Admin Panel</button>
+    </div>
+</div>
+
+<h2>Quiz Form</h2>
+
+<div class="form-region">
+<form asp-action="Save" method="post" asp-antiforgery="true">
+    <div class="form-group">
+        <label asp-for="SectionDto.Name"></label>
+        <input asp-for="SectionDto.Name" class="form-control">
+        <span asp-validation-for="SectionDto.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="SectionDto.Description"></label>
+        <textarea asp-for="SectionDto.Description" rows="5" cols="40" class="form-control form-description"></textarea>
+    </div>
+    <div id="questions-container">
+        @for(int i=0; i<Model.SectionDto.Questions.Count; i++)
+        {
+            <div id="@("question"+i)" class="form-group">
+                <button class='btn btn-danger question-button js-delete-question' type="button">Delete Question</button>
+                <label>Question</label>
+                <textarea asp-for="SectionDto.Questions[i].QuestionText" class="form-control"></textarea>
+                <span asp-validation-for="SectionDto.Questions[i].QuestionText" class="text-danger"></span>
+                <div id="@("answers-wrapper"+i)"></div>
+                @for (int j = 0; j < Model.SectionDto.Questions[i].Answers.Count; j++)
+                {
+                    <div id="@("question-" + i + "-answer-" + j)" class='radio answer'>
+                        <label>
+                            <input asp-for="SectionDto.Questions[i].CorrectAnswerId" value="@i" type="radio">
+                            Answer
+                        </label>
+                        
+                        <textarea asp-for="SectionDto.Questions[i].Answers[j].AnswerText" class="form-control question-area"></textarea>
+                        <span asp-validation-for="SectionDto.Questions[i].Answers[j].AnswerText" class="text-danger"></span>
+                        <button class='btn btn-link js-delete-answer' type='button' data-answer-id = @j data-question-id = '" + questionIndex + "'>Delete Answer</button>
+                    </div>
+                 }
+                 <button class='btn btn-link js-add-answer' type="button">Add Answer</button>
+            </div>
+        }
+    </div>
+    <button id="add-question" class='btn btn-primary js-add-question' type="button">Add Question</button>
+
+    <input type="hidden" asp-for="SectionDto.Id">
+    <input type="hidden" asp-for="SectionDto.ParentId">
+    <input type="hidden" asp-for="SectionDto.SectionTypeId">
+    
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+</div>
+
+@section Scripts{
+<script asp-src-include="lib/jquery-validation/dist/jquery.*.min.js"></script>
+<script asp-src-include="lib/jquery-validation-unobtrusive/*.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var questionCount = @Model.SectionDto.Questions.Count;
+
+            $("#add-question").on("click", function () {
+
+                var questionName = "SectionDto.Questions[" + questionCount + "].QuestionText";
+                var questionId = "SectionDto_Questions_" + questionCount + "__QuestionText";
+                var questionDivId = "question" + questionCount;
+                var answersDivId = "answers-wrapper" + questionCount;
+
+                var question = $("<div id='" + questionDivId + "' class='form-group'><button class='btn btn-danger question-button js-delete-question' type='button'>Delete Question</button><label>Question</label><textarea name='" + questionName + "' class='form-control' id='" + questionId + "'></textarea><div id='" + answersDivId + "'></div></div>");
+                $("#questions-container").append(question);
+                for (var i = 0; i < 4; i++) {
+                    AddAnswer(questionCount, i);
+                }
+
+                $("#" + questionDivId).append("<button class='btn btn-link js-add-answer' type='button' data-question-id = '" + questionCount + "'>Add Answer</button>");
+                questionCount++;
+            });
+
+            $("#questions-container").on('click', '.js-delete-question', function () {
+                var questionToDelete = "#question" + (questionCount - 1);
+                $(questionToDelete).remove();
+                questionCount--;
+            });
+
+            $("#questions-container").on('click', '.js-add-answer', function () {
+                var button = $(this);
+                var questionIndex = button.attr("data-question-id");
+                var answersDivId = "#answers-wrapper" + questionIndex;
+                var answerIndex = $(answersDivId).children(".answer").length;
+                AddAnswer(questionIndex, answerIndex);
+            });
+
+            $("#questions-container").on('click', '.js-delete-answer', function () {
+                var button = $(this);
+                var answerIndex = button.attr("data-answer-id");
+                var questionIndex = button.attr("data-question-id");
+                var answerId = "#question-" + questionIndex + "-answer-" + answerIndex;
+                $(answerId).remove();
+            });
+
+            function AddAnswer(questionIndex, answerIndex) {
+                var answerName = "SectionDto.Questions[" + questionIndex + "].Answers[" + answerIndex + "].AnswerText";
+
+                var answerId = "SectionDto_Questions_" + questionIndex + "__Answers_" + answerIndex + "__AnswerText";
+
+                var correctAnswerName = "SectionDto.Questions[" + questionIndex + "].CorrectAnswerId";
+                var correctAnswerId = "SectionDto.Questions_" + questionIndex + "__CorrectAnswerId";
+
+                var answer = $("<div id='question-" + questionIndex + "-answer-" + answerIndex + "' class='radio answer'><label><input name='" + correctAnswerName + "' id='" + correctAnswerId + "' value='" + answerIndex + "' type='radio'>Answer</label><textarea name='" + answerName + "' class='form-control question-area' id='" + answerId + "'></textarea><span class='text-danger field-validation-valid' data-valmsg-for='" + answerName + "' data-valmsg-replace='true'></span><button class='btn btn-link js-delete-answer' type='button' data-answer-id = '" + answerIndex + "' data-question-id = '" + questionIndex + "'>Delete Answer</button></div>");
+
+                var answersDivId = "#answers-wrapper" + questionIndex;
+                $(answersDivId).append(answer);
+            }
+        });
+    </script>
+}
+

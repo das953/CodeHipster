@@ -1,0 +1,43 @@
+@model CodeHipser.ViewModels.SectionViewModel
+@{
+    ViewData["Title"] = "VideoLessonForm";
+}
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <ol class="breadcrumb">
+            @foreach (var item in Model.Parents)
+                {
+                <li><a href='@Url.Action("Edit", "Admin", new { id = item.Id})'>@item.Name</a></li>
+                }
+        </ol>
+        <button class="btn btn-success" onclick="location.href='@Url.Action("Edit", "Admin", new { id = Model.SectionDto.ParentId})'">Back</button>
+        <button class="btn btn-success" onclick="location.href='@Url.Action("Index", "Admin")'">Admin Panel</button>
+    </div>
+</div>
+
+<h2>Video Lesson</h2>
+
+<form asp-action="Save" method="post" asp-antiforgery="true">
+    <div class="form-group">
+        <label asp-for="SectionDto.Name"></label>
+        <input asp-for="SectionDto.Name" class="form-control">
+        <span asp-validation-for="SectionDto.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="SectionDto.Description"></label>
+        <textarea asp-for="SectionDto.Description" rows="5" cols="40" class="form-control form-description"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="SectionDto.VideoUrl"></label>
+        <input asp-for="SectionDto.VideoUrl"class="form-control">
+        <span asp-validation-for="SectionDto.Name" class="text-danger"></span>
+    </div>
+    <input type="hidden" asp-for="SectionDto.Id">
+    <input type="hidden" asp-for="SectionDto.ParentId">
+    <input type="hidden" asp-for="SectionDto.SectionTypeId">
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+

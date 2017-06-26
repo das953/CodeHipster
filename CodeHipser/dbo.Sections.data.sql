@@ -1,0 +1,17 @@
+SET IDENTITY_INSERT [dbo].[Sections] ON
+INSERT INTO [dbo].[Sections] ([Id], [Content], [Description], [Name], [ParentId], [SectionTypeId]) VALUES (3, N'', NULL, N'Programming', NULL, 1)
+INSERT INTO [dbo].[Sections] ([Id], [Content], [Description], [Name], [ParentId], [SectionTypeId]) VALUES (5, N'', NULL, N'Web Design', NULL, 1)
+INSERT INTO [dbo].[Sections] ([Id], [Content], [Description], [Name], [ParentId], [SectionTypeId]) VALUES (6, N'', NULL, N'Architecture', NULL, 1)
+INSERT INTO [dbo].[Sections] ([Id], [Content], [Description], [Name], [ParentId], [SectionTypeId]) VALUES (8, N'', NULL, N'Javascript', 3, 1)
+INSERT INTO [dbo].[Sections] ([Id], [Content], [Description], [Name], [ParentId], [SectionTypeId]) VALUES (10, N'', NULL, N'C#', 3, 1)
+INSERT INTO [dbo].[Sections] ([Id], [Content], [Description], [Name], [ParentId], [SectionTypeId]) VALUES (11, NULL, NULL, N'Make Your First WPF Application', 10, 2)
+INSERT INTO [dbo].[Sections] ([Id], [Content], [Description], [Name], [ParentId], [SectionTypeId]) VALUES (12, NULL, NULL, N'C# For Beginners', 10, 2)
+INSERT INTO [dbo].[Sections] ([Id], [Content], [Description], [Name], [ParentId], [SectionTypeId]) VALUES (13, NULL, NULL, N'Introduction', 12, 3)
+INSERT INTO [dbo].[Sections] ([Id], [Content], [Description], [Name], [ParentId], [SectionTypeId]) VALUES (15, NULL, NULL, N'Course Preview', 13, 4)
+INSERT INTO [dbo].[Sections] ([Id], [Content], [Description], [Name], [ParentId], [SectionTypeId]) VALUES (16, NULL, NULL, N'About This Course', 15, 5)
+INSERT INTO [dbo].[Sections] ([Id], [Content], [Description], [Name], [ParentId], [SectionTypeId]) VALUES (17, NULL, NULL, N'Additional Materials', 15, 6)
+INSERT INTO [dbo].[Sections] ([Id], [Content], [Description], [Name], [ParentId], [SectionTypeId]) VALUES (18, NULL, NULL, N'Introduction To C#', 12, 3)
+INSERT INTO [dbo].[Sections] ([Id], [Content], [Description], [Name], [ParentId], [SectionTypeId]) VALUES (19, NULL, NULL, N'.NET Framework And CLR', 18, 4)
+INSERT INTO [dbo].[Sections] ([Id], [Content], [Description], [Name], [ParentId], [SectionTypeId]) VALUES (20, NULL, NULL, N'.NET Framework - What Is It?', 19, 5)
+INSERT INTO [dbo].[Sections] ([Id], [Content], [Description], [Name], [ParentId], [SectionTypeId]) VALUES (21, NULL, NULL, N'.NET Framework (Quiz)', 18, 7)
+SET IDENTITY_INSERT [dbo].[Sections] OFF

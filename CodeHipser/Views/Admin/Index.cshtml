@@ -1,0 +1,71 @@
+@model IEnumerable<CodeHipser.Models.Section>
+@{
+    ViewData["Title"] = "Index";
+}
+@section Styles
+{
+    <link rel="stylesheet" href="~/lib/jquery-treegrid/dist/css/jquery.treegrid.css" />
+}
+<h2>Courses Admin</h2>
+
+<button class="btn btn-primary" onclick="location.href='@Url.Action("New", "Admin", new { sectionTypeId = SectionType.Category }, null)'">Create Root Category</button>
+<table id="admin-tree-table" class="tree table table-bordered">
+    <thead>
+        <tr>
+            <th>Section Name</th>
+            <th>Section Type</th>
+            <th>Editing</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var item in @Model)
+            {
+                if (item.ParentId == null)
+                {
+                    <tr class="@("treegrid-"+item.Id)">
+                        <td>@item.Name</td>
+                        <td>@item.SectionType.Name</td>
+                        <td>
+                            <button class="btn btn-link" onclick="location.href='@Url.Action("Edit", "Admin", new { id = item.Id })'">Edit</button>
+                            <button class="btn btn-link js-delete" data-section-id="@item.Id">Delete</button>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr id="@item.Id" class="@("treegrid-"+item.Id) @("treegrid-parent-"+item.ParentId)">
+                        <td>@item.Name</td>
+                        <td>@item.SectionType.Name</td>
+                        <td>
+                            <button class="btn btn-link" onclick="location.href='@Url.Action("Edit", "Admin", new { id = item.Id })'">Edit</button>
+                            <button class="btn btn-link js-delete" data-section-id="@item.Id">Delete</button>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
+@section Scripts
+{
+    <script type="text/javascript" src="~/lib/jquery-treegrid/dist/js/jquery.treegrid.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.tree').treegrid();
+            $('#admin-tree-table').on("click", ".js-delete", function () {
+                var button = $(this);
+                button.attr('disabled', 'disabled');
+                $.ajax({
+                    url: "api/Admin/" + button.attr("data-section-id"),
+                    type: "DELETE",
+                    success: function () {
+                        $('.treegrid-' + button.attr("data-section-id")).treegrid('remove');
+                    }
+                });
+            });
+        });
+    </script>
+}
+

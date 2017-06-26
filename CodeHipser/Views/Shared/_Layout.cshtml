@@ -8,6 +8,7 @@
 
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/cosmo.css" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment names="Staging,Production">
@@ -16,6 +17,7 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
+    @RenderSection("Styles", false)
     @Html.Raw(JavaScriptSnippet.FullScript)
 </head>
 <body>
@@ -28,7 +30,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">CodeHipser</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Code Hipster</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">

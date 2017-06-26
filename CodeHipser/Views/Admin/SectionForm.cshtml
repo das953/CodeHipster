@@ -1,0 +1,111 @@
+@model CodeHipser.ViewModels.SectionViewModel
+@{
+    ViewData["Title"] = "CategoryForm";
+}
+@section Styles{
+    <link rel="stylesheet" href="~/lib/datatables/media/css/dataTables.bootstrap.min.css" />
+}
+<div class="panel panel-default admin-nav-panel">
+    <div class="panel-body admin-nav-panel">
+        @if (Model.Parents.Count > 0)
+        {
+            <ol class="breadcrumb">
+                @foreach (var item in Model.Parents)
+                {
+                    <li><a href='@Url.Action("Edit", "Admin", new { id = item.Id})'>@item.Name</a></li>
+                }
+            </ol>
+        }
+        
+        @if (Model.SectionDto.ParentId != null)
+        {
+            <button class="btn btn-success" onclick="location.href='@Url.Action("Edit", "Admin", new { id = Model.SectionDto.ParentId})'">Back</button>
+        }
+        <button class="btn btn-success" onclick="location.href='@Url.Action("Index", "Admin")'">Admin Panel</button>
+    </div>
+</div>
+
+<h2>Edit @Model.SectionDto.SectionType?.Name @Model.SectionDto?.Name</h2>
+
+@{
+    Model.SectionDto.Content = String.Empty;
+    if (Model.SectionDto.Id != 0)
+    {
+        foreach (var item in Model.ParentForSectionTypes)
+        {
+            <button class="btn btn-primary" onclick="location.href='@Url.Action("New", "Admin", new { sectionTypeId = item.Id, parentId = Model.SectionDto.Id }, null)'">Create @item.Name</button>
+        }
+    }
+}
+
+<form asp-action="Save" method="post" asp-antiforgery="true">
+    <div class="form-group">
+        <label asp-for="SectionDto.Name"></label>
+        <input asp-for="SectionDto.Name" class="form-control">
+        <span asp-validation-for="SectionDto.Name" class="text-danger"></span>
+    </div>
+<div class="form-group">
+    <label asp-for="SectionDto.Description"></label>
+    <textarea asp-for="SectionDto.Description" rows="5" cols="40" class="form-control form-description"></textarea>
+</div>
+
+<input type="hidden" asp-for="SectionDto.Id">
+<input type="hidden" asp-for="SectionDto.ParentId">
+<input type="hidden" asp-for="SectionDto.SectionTypeId">
+
+<button type="submit" class="btn btn-primary">Save</button>
+</form>
+@if (Model.SectionDto.Children != null && Model.SectionDto.Children.Any())
+{
+    <div class="table-wrapper">
+        <table id="sections-table" class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.SectionDto.Children)
+                {
+                    <tr>
+                        <td><a asp-action="Edit" asp-route-id="@item.Id">@item.Name</a></td>
+                        <td>@item.SectionType.Name</td>
+                        <td>
+                            <button data-section-id="@item.Id" class="btn btn-link js-delete-section">Delete</button>
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@section Scripts{
+    <script src="~/lib/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables/media/js/dataTables.bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var table = $('#sections-table').DataTable();
+            $('#sections-table').on("click", ".js-delete-section", function () {
+                var button = $(this);
+                button.attr('disabled', 'disabled');
+                $.ajax({
+                        url: "/../../api/Admin/" + button.attr("data-section-id"),
+                        type: 'DELETE',
+                        success: function () {
+                            table.row(button.parents("tr")).remove().draw();
+                        },
+                        error: function (obj) {
+                            alert('Error occured while deleting section');
+                            button.attr('enabled', 'enabled');
+                        }
+                    });
+            });
+        });
+</script>
+}
+
+
