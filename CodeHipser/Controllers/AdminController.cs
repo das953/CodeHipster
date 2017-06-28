@@ -112,8 +112,17 @@ namespace CodeHipser.Controllers
                 return View(_sectionTypeToView[viewModel.SectionDto.SectionTypeId], viewModel);
             }
 
+            if (viewModel.SectionDto.SectionTypeId == SectionType.Quiz)
+            {
+                foreach (var question in viewModel.SectionDto.Questions)
+                {
+                    if(question.CorrectAnswerId < question.Answers.Count)
+                        question.Answers[(int)question.CorrectAnswerId].IsCorrect = true;
+                }
+            }
+
             //Create new section
-            if(viewModel.SectionDto.Id==0)
+            if (viewModel.SectionDto.Id==0)
             {
                 Section section = _mapper.Map<Section>(viewModel.SectionDto);
                 //section.Questions = viewModel.Questions;

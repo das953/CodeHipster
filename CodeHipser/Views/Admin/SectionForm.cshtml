@@ -5,24 +5,22 @@
 @section Styles{
     <link rel="stylesheet" href="~/lib/datatables/media/css/dataTables.bootstrap.min.css" />
 }
-<div class="panel panel-default admin-nav-panel">
-    <div class="panel-body admin-nav-panel">
-        @if (Model.Parents.Count > 0)
-        {
-            <ol class="breadcrumb">
-                @foreach (var item in Model.Parents)
-                {
-                    <li><a href='@Url.Action("Edit", "Admin", new { id = item.Id})'>@item.Name</a></li>
-                }
-            </ol>
-        }
+<div class="admin-nav-panel">
+    @if (Model.Parents.Count > 0)
+    {
+        <ol class="breadcrumb">
+            @foreach (var item in Model.Parents)
+            {
+                <li><a href='@Url.Action("Edit", "Admin", new { id = item.Id})'>@item.Name</a></li>
+            }
+        </ol>
+    }
         
-        @if (Model.SectionDto.ParentId != null)
-        {
-            <button class="btn btn-success" onclick="location.href='@Url.Action("Edit", "Admin", new { id = Model.SectionDto.ParentId})'">Back</button>
-        }
-        <button class="btn btn-success" onclick="location.href='@Url.Action("Index", "Admin")'">Admin Panel</button>
-    </div>
+    @if (Model.SectionDto.ParentId != null)
+    {
+        <button class="btn btn-success" onclick="location.href='@Url.Action("Edit", "Admin", new { id = Model.SectionDto.ParentId})'">Back</button>
+    }
+    <button class="btn btn-success" onclick="location.href='@Url.Action("Index", "Admin")'">Admin Panel</button>
 </div>
 
 <h2>Edit @Model.SectionDto.SectionType?.Name @Model.SectionDto?.Name</h2>
@@ -73,10 +71,9 @@
                         <td><a asp-action="Edit" asp-route-id="@item.Id">@item.Name</a></td>
                         <td>@item.SectionType.Name</td>
                         <td>
-                            <button data-section-id="@item.Id" class="btn btn-link js-delete-section">Delete</button>
+                            <a data-section-id="@item.Id" class="js-delete-section" href="#">Delete</a>
                         </td>
                     </tr>
-
                 }
             </tbody>
         </table>
@@ -84,11 +81,8 @@
 }
 
 @section Scripts{
-    <script src="~/lib/datatables/media/js/jquery.dataTables.min.js"></script>
-    <script src="~/lib/datatables/media/js/dataTables.bootstrap.min.js"></script>
     <script>
         $(document).ready(function () {
-            var table = $('#sections-table').DataTable();
             $('#sections-table').on("click", ".js-delete-section", function () {
                 var button = $(this);
                 button.attr('disabled', 'disabled');
@@ -96,7 +90,7 @@
                         url: "/../../api/Admin/" + button.attr("data-section-id"),
                         type: 'DELETE',
                         success: function () {
-                            table.row(button.parents("tr")).remove().draw();
+                            button.parents("tr").remove();
                         },
                         error: function (obj) {
                             alert('Error occured while deleting section');

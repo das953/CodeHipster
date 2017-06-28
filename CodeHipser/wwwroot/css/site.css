@@ -45,24 +45,39 @@ textarea {
 /*-----------------------------------------Sidebar Navigation----------------------------------------------*/
 
 /*--------------------------------------------Admin Panel--------------------------------------------------*/
+#admin-tree-table{
+    margin-top: 20px;
+}
+.admin-nav-panel {
+    margin-top: 20px;
+}
 .form-description{
     min-width: 50%;
 }
 .form-content {
-    min-width: 80%;
+    min-width: 70%;
 }
-.admin-nav-panel{
-    margin-bottom: 20px;
+.question-textarea {
+    min-width: 50%;
 }
 .question-button{
     margin-bottom: 10px;
     margin-right: 10px;
     display: inline-block;
 }
+.answers-container{
+    margin-left: 30px;
+}
+.answer-textarea{
+    min-width: 40%;
+}
 #answer-button {
     margin-bottom: 10px;
     margin-right: 10px;
     display: inline-block;
+}
+.question-button {
+    display: block;
 }
 .form-region {
     margin-bottom: 20px;
@@ -70,9 +85,7 @@ textarea {
 .form-control .input-validation-error{
     color: red;
 }
-.admin-nav-panel{
-    margin-top: 20px;
-}
+
 /*-----------------------------------------Media Queries---------------------------------------------------*/
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {

@@ -8,15 +8,20 @@ namespace CodeHipser.Models.Dtos
 {
     public class QuestionDto
     {
+        private readonly int _minAnswers = 4;
+        private readonly int _maxAnswers = 6;
+
         public int Id { get; set; }
 
         [Required]
         public string QuestionText { get; set; }
 
         [Required]
-        public int CorrectAnswerId { get; set; }
-
+        public int? CorrectAnswerId { get; set; }
         public List<AnswerDto> Answers { get; set; }
+
+        public int MinAnswers { get { return _minAnswers; } }
+        public int MaxAnswers { get { return _maxAnswers; } }
 
         public QuestionDto()
         {

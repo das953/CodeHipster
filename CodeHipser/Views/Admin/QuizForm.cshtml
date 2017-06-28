@@ -2,14 +2,18 @@
 @{
     ViewData["Title"] = "QuizForm";
 }
-<div class="panel panel-default">
-    <div class="panel-body">
-        <button class="btn btn-success" onclick="location.href='@Url.Action("Edit", "Admin", new { id = Model.SectionDto.ParentId})'">Back</button>
-        <button class="btn btn-success" onclick="location.href='@Url.Action("Index", "Admin")'">Admin Panel</button>
-    </div>
+<div class="admin-nav-panel">
+    <ol class="breadcrumb">
+        @foreach (var item in Model.Parents)
+        {
+            <li><a href='@Url.Action("Edit", "Admin", new { id = item.Id})'>@item.Name</a></li>
+        }
+    </ol>
+    <button class="btn btn-success" onclick="location.href='@Url.Action("Edit", "Admin", new { id = Model.SectionDto.ParentId})'">Back</button>
+    <button class="btn btn-success" onclick="location.href='@Url.Action("Index", "Admin")'">Admin Panel</button>
 </div>
 
-<h2>Quiz Form</h2>
+<h2>Edit Quiz</h2>
 
 <div class="form-region">
 <form asp-action="Save" method="post" asp-antiforgery="true">
@@ -20,31 +24,43 @@
     </div>
     <div class="form-group">
         <label asp-for="SectionDto.Description"></label>
-        <textarea asp-for="SectionDto.Description" rows="5" cols="40" class="form-control form-description"></textarea>
+        <textarea asp-for="SectionDto.Description" rows="5" class="form-control form-description"></textarea>
     </div>
     <div id="questions-container">
         @for(int i=0; i<Model.SectionDto.Questions.Count; i++)
         {
-            <div id="@("question"+i)" class="form-group">
-                <button class='btn btn-danger question-button js-delete-question' type="button">Delete Question</button>
-                <label>Question</label>
-                <textarea asp-for="SectionDto.Questions[i].QuestionText" class="form-control"></textarea>
-                <span asp-validation-for="SectionDto.Questions[i].QuestionText" class="text-danger"></span>
-                <div id="@("answers-wrapper"+i)"></div>
+            <div id="@("question"+i)" class="form-group question-container">
+                <button class='btn btn-danger question-button js-delete-question' type="button" data-question-id="@i">Delete Question</button>
+                <label class="question-label">Question</label>
+                <textarea asp-for="SectionDto.Questions[i].QuestionText" class="form-control question-textarea" rows="3"></textarea>
+                <span asp-validation-for="SectionDto.Questions[i].QuestionText" class="text-danger question-validation"></span>
+                <div id="@("answers-wrapper"+i)" class="answers-container">
                 @for (int j = 0; j < Model.SectionDto.Questions[i].Answers.Count; j++)
                 {
-                    <div id="@("question-" + i + "-answer-" + j)" class='radio answer'>
+                    <div id="@("question-" + i + "-answer-" + j)" class='radio answer-container'>
                         <label>
-                            <input asp-for="SectionDto.Questions[i].CorrectAnswerId" value="@i" type="radio">
+                            @{
+                                if (Model.SectionDto.Questions[i].Answers[j].IsCorrect)
+                                {
+                                    <input asp-for="SectionDto.Questions[i].CorrectAnswerId" value="@j" type="radio" class="answer-radio" checked>
+                                }
+                                else
+                                {
+                                    <input asp-for="SectionDto.Questions[i].CorrectAnswerId" value="@j" type="radio" class="answer-radio">
+                                }
+                            }
+                            
                             Answer
                         </label>
-                        
-                        <textarea asp-for="SectionDto.Questions[i].Answers[j].AnswerText" class="form-control question-area"></textarea>
-                        <span asp-validation-for="SectionDto.Questions[i].Answers[j].AnswerText" class="text-danger"></span>
-                        <button class='btn btn-link js-delete-answer' type='button' data-answer-id = @j data-question-id = '" + questionIndex + "'>Delete Answer</button>
-                    </div>
-                 }
-                 <button class='btn btn-link js-add-answer' type="button">Add Answer</button>
+
+                        <textarea asp-for="SectionDto.Questions[i].Answers[j].AnswerText" class="form-control answer-textarea"></textarea>
+                        <button class='btn btn-link js-delete-answer' type='button' data-answer-id=@j data-question-id=@i>Delete Answer</button>
+                        <span asp-validation-for="SectionDto.Questions[i].Answers[j].AnswerText" class="text-danger answer-validation"></span>
+                     </div>
+                }
+                <button class='btn btn-link js-add-answer' type="button">Add Answer</button>
+                </div>
+                <span asp-validation-for="SectionDto.Questions[i].CorrectAnswerId" class="text-danger answer-validation"></span>
             </div>
         }
     </div>
@@ -65,45 +81,55 @@
         $(document).ready(function () {
             var questionCount = @Model.SectionDto.Questions.Count;
 
+            //Add question
             $("#add-question").on("click", function () {
 
                 var questionName = "SectionDto.Questions[" + questionCount + "].QuestionText";
                 var questionId = "SectionDto_Questions_" + questionCount + "__QuestionText";
                 var questionDivId = "question" + questionCount;
                 var answersDivId = "answers-wrapper" + questionCount;
+                var correctAnswerId = "SectionDto.Questions[" + questionCount + "].CorrectAnswerId";
 
-                var question = $("<div id='" + questionDivId + "' class='form-group'><button class='btn btn-danger question-button js-delete-question' type='button'>Delete Question</button><label>Question</label><textarea name='" + questionName + "' class='form-control' id='" + questionId + "'></textarea><div id='" + answersDivId + "'></div></div>");
+                var question = $("<div id='" + questionDivId + "' class='form-group question-container'><button class='btn btn-danger question-button js-delete-question' type='button' data-question-id='" + questionCount + "'>Delete Question</button><label class='question-label'>Question</label><textarea name='" + questionName + "' class='form-control question-textarea' id='" + questionId + "' rows='3'></textarea><span class='text-danger field-validation-valid question-validation' data-valmsg-for='" + questionName + "' data-valmsg-replace='true'></span><div id='" + answersDivId + "' class='answers-container'></div></div>");
                 $("#questions-container").append(question);
                 for (var i = 0; i < 4; i++) {
                     AddAnswer(questionCount, i);
                 }
-
-                $("#" + questionDivId).append("<button class='btn btn-link js-add-answer' type='button' data-question-id = '" + questionCount + "'>Add Answer</button>");
+                $("#answers-wrapper" + questionCount).append("<button class='btn btn-link js-add-answer' type='button' data-question-id = '" + questionCount + "'>Add Answer</button>");
+                $("#" + questionDivId).append("<span class='text-danger field-validation-valid correct-answer-validation' data-valmsg-for='" + correctAnswerId + "' data-valmsg-replace='true'></span>");
                 questionCount++;
             });
 
+            //Delete question
             $("#questions-container").on('click', '.js-delete-question', function () {
-                var questionToDelete = "#question" + (questionCount - 1);
+                var button = $(this);
+                var questionIndex = button.attr("data-question-id");
+                var questionToDelete = "#question" + questionIndex;
                 $(questionToDelete).remove();
                 questionCount--;
+                refreshQuestions();
             });
 
+            //Add answer click
             $("#questions-container").on('click', '.js-add-answer', function () {
                 var button = $(this);
                 var questionIndex = button.attr("data-question-id");
                 var answersDivId = "#answers-wrapper" + questionIndex;
-                var answerIndex = $(answersDivId).children(".answer").length;
+                var answerIndex = $(answersDivId).children(".answer-container").length;
                 AddAnswer(questionIndex, answerIndex);
             });
 
+            //Delete answer
             $("#questions-container").on('click', '.js-delete-answer', function () {
                 var button = $(this);
                 var answerIndex = button.attr("data-answer-id");
                 var questionIndex = button.attr("data-question-id");
                 var answerId = "#question-" + questionIndex + "-answer-" + answerIndex;
                 $(answerId).remove();
+                refreshAnswers(questionIndex);
             });
 
+            //Add answer
             function AddAnswer(questionIndex, answerIndex) {
                 var answerName = "SectionDto.Questions[" + questionIndex + "].Answers[" + answerIndex + "].AnswerText";
 
@@ -112,12 +138,36 @@
                 var correctAnswerName = "SectionDto.Questions[" + questionIndex + "].CorrectAnswerId";
                 var correctAnswerId = "SectionDto.Questions_" + questionIndex + "__CorrectAnswerId";
 
-                var answer = $("<div id='question-" + questionIndex + "-answer-" + answerIndex + "' class='radio answer'><label><input name='" + correctAnswerName + "' id='" + correctAnswerId + "' value='" + answerIndex + "' type='radio'>Answer</label><textarea name='" + answerName + "' class='form-control question-area' id='" + answerId + "'></textarea><span class='text-danger field-validation-valid' data-valmsg-for='" + answerName + "' data-valmsg-replace='true'></span><button class='btn btn-link js-delete-answer' type='button' data-answer-id = '" + answerIndex + "' data-question-id = '" + questionIndex + "'>Delete Answer</button></div>");
+                var answer = $("<div id='question-" + questionIndex + "-answer-" + answerIndex + "' class='radio answer-container'><label><input name='" + correctAnswerName + "' id='" + correctAnswerId + "' value='" + answerIndex + "' type='radio' class='answer-radio'>Answer</label><textarea name='" + answerName + "' class='form-control answer-textarea' id='" + answerId + "'></textarea><span class='text-danger field-validation-valid answer-validation' data-valmsg-for='" + answerName + "' data-valmsg-replace='true'></span><button class='btn btn-link js-delete-answer' type='button' data-answer-id = '" + answerIndex + "' data-question-id = '" + questionIndex + "'>Delete Answer</button></div>");
 
                 var answersDivId = "#answers-wrapper" + questionIndex;
                 $(answersDivId).append(answer);
             }
         });
+
+        function refreshAnswers(questionIndex) {
+            var question = $("#question" + questionIndex);
+            $(question).find(".answer-container").each(function (j) {
+                $(this).attr('id', 'question-' + questionIndex + '-answer-' + j);
+                $(this).find(".answer-label").text('Question ' + j);
+                $(this).find('.answer-radio').attr({ name: 'SectionDto.Questions[' + questionIndex + '].CorrectAnswerId', id: 'SectionDto.Questions_' + questionIndex + '__CorrectAnswerId', value: j });
+                $(this).find('.answer-textarea').attr({ name: 'SectionDto.Questions[' + questionIndex + '].Answers[' + j + '].AnswerText', id: 'SectionDto.Questions_' + questionIndex + '__Answers_' + j + '__AnswerText' });
+                $(this).find('.answer-validation').attr('data-valmsg-for', 'SectionDto.Questions[' + questionIndex + '].Answers[' + j + '].AnswerText');
+                $(this).find('.js-delete-answer').attr({ 'data-question-id': questionIndex, 'data-answer-id': j });
+            });
+        }
+
+        function refreshQuestions() {
+            $("#questions-container").find(".question-container").each(function (i) {
+                $(this).attr('id', 'question'+i)
+                $(this).find(".js-delete-question").attr('data-question-id', i);
+                $(this).find(".question-label").text('Question ' + i);
+                $(this).find(".question-textarea").attr({ name: 'SectionDto.Questions[' + i + '].QuestionText', id: 'SectionDto_Questions_' + i + '__QuestionText' });
+                $(this).find(".question-validation").attr('data-valmsg-for', 'SectionDto.Questions[' + i + '].QuestionText');
+                $(this).find(".answers-container").attr('id', 'answers-wrapper' + i);
+                refreshAnswers(i);
+            });
+        }
     </script>
 }
 

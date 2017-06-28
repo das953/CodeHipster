@@ -3,17 +3,15 @@
     ViewData["Title"] = "VideoLessonForm";
 }
 
-<div class="panel panel-default">
-    <div class="panel-body">
-        <ol class="breadcrumb">
-            @foreach (var item in Model.Parents)
-                {
-                <li><a href='@Url.Action("Edit", "Admin", new { id = item.Id})'>@item.Name</a></li>
-                }
-        </ol>
-        <button class="btn btn-success" onclick="location.href='@Url.Action("Edit", "Admin", new { id = Model.SectionDto.ParentId})'">Back</button>
-        <button class="btn btn-success" onclick="location.href='@Url.Action("Index", "Admin")'">Admin Panel</button>
-    </div>
+<div class="admin-nav-panel">
+    <ol class="breadcrumb">
+    @foreach (var item in Model.Parents)
+    {
+        <li><a href='@Url.Action("Edit", "Admin", new { id = item.Id})'>@item.Name</a></li>
+    }
+    </ol>
+    <button class="btn btn-success" onclick="location.href='@Url.Action("Edit", "Admin", new { id = Model.SectionDto.ParentId})'">Back</button>
+    <button class="btn btn-success" onclick="location.href='@Url.Action("Index", "Admin")'">Admin Panel</button>
 </div>
 
 <h2>Video Lesson</h2>
@@ -31,7 +29,7 @@
     <div class="form-group">
         <label asp-for="SectionDto.VideoUrl"></label>
         <input asp-for="SectionDto.VideoUrl"class="form-control">
-        <span asp-validation-for="SectionDto.Name" class="text-danger"></span>
+        <span asp-validation-for="SectionDto.VideoUrl" class="text-danger"></span>
     </div>
     <input type="hidden" asp-for="SectionDto.Id">
     <input type="hidden" asp-for="SectionDto.ParentId">
