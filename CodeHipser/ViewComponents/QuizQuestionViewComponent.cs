@@ -21,7 +21,7 @@ namespace CodeHipser.ViewComponents
         //    int currentCount, 
         //    int totalCount,
         //    string themeName)
-              public IViewComponentResult InvokeAsync(
+              public Task<IViewComponentResult> InvokeAsync(
             string themeName)
         {
             //ViewData["currentCount"] = currentCount;
@@ -32,7 +32,7 @@ namespace CodeHipser.ViewComponents
             ViewData["currentCount"] = 1;
             ViewData["totalCount"] = 10;
             ViewData["themeName"] = themeName;
-            return (IViewComponentResult)View("Default", new Question { Id = 4});
+            return Task.FromResult<IViewComponentResult>(View("Default", new Question { Id = 4}));
 
         }
     }
