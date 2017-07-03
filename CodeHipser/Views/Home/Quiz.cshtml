@@ -11,34 +11,43 @@
 
 
 
-    <div>
+
+    <div id="ttt">
         @await Component.InvokeAsync("QuizQuestion", new
    {
-       currentQuestion = _questions[0],
+       currentQuestion = _questions[_currentCount],
        currentCount = _currentCount,
        totalCount = _totalCount,
        themeName = Model.Parent.Name
    })
     </div>
 
+
     <br/>
 
     <div class="row">
 
-
+       
+        @Url.Action("InvokeAsync", "ViewComponents/QuizQuestionViewComponent", new
+   {
+       currentQuestion = _questions[_currentCount],
+       currentCount = _currentCount,
+       totalCount = _totalCount,
+       themeName = Model.Parent.Name
+   })
         <div style="text-align:left; padding:0" class="col-md-6">
-            <button class="btn-default">Previous</button>
+            <button class="btn-default" data-target="ttt" >Previous</button>
         </div>
 
         <div style="text-align:right; padding:0" class="col-md-6">
-            <button class="btn-default">Next</button>
+            <button class="btn-default" type="submit">Next</button>
         </div>
 
-
+        <a data-target=""></a>
 
     </div>
 
- 
+
 
 
 
