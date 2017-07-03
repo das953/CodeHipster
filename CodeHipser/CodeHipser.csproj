@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <Content Include="wwwroot\css\cosmo.css" />
+    <Content Include="wwwroot\images\2.png" />
     <Content Include="wwwroot\images\Welcome to Vectr.png" />
     <Content Include="wwwroot\lib\jquery\jquery.cookie\.bower.json" />
     <Content Include="wwwroot\lib\jquery\jquery.cookie\bower.json" />
@@ -46,6 +47,9 @@
     <Folder Include="Views\Shared\Components\Navigation\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Shared\Components\QuizQuestion\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
 
 </Project>

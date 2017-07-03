@@ -1,7 +1,7 @@
-﻿﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿body {
+
     background-color: snow;
+    
 }
 
 /* Wrapping element */
@@ -57,39 +57,44 @@ textarea {
 }
 
 .jqtree_common {
+   
     top: 100%;
     left: 0;
     z-index: 1000;
-    /*float: left;*/
+     /*float: left;*/
+    
     padding: 5px 0;
     margin: 2px 0 0;
     list-style: none;
     font-size: 14px;
     text-align: left;
     /*background-color: #3a3f44;*/
+    
     line-height: 1.42857143;
+    
 }
 
 .jqtree-element {
     border: 3px solid;
-    border-color: aliceblue;
+    border-color: #FFEB3B;
     border-radius: 4px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-    background-color: lightgrey;
+    background-color: ivory;
     background-clip: padding-box;
 }
 
 
 
 ul.jqtree-tree ul.jqtree_common ul.jqtree_common li.jqtree_common:hover .jqtree-element {
-    background-color: darkgray;
+    background-color: burlywood;
 }
 
 
 
 
-.jqtree-title {
+.jqtree-title{
     text-align: left;
+    
 }
 
 .classcontentblock {
@@ -97,10 +102,11 @@ ul.jqtree-tree ul.jqtree_common ul.jqtree_common li.jqtree_common:hover .jqtree-
     text-align: center;
     line-height: 1.42857143;
     border: 3px solid;
-    border-color: aliceblue;
+    border-color: #FFEB3B;
     border-radius: 4px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
     background-clip: padding-box;
+    background-color: ivory;
 }
 
 .classcontentblock1 {
@@ -109,15 +115,16 @@ ul.jqtree-tree ul.jqtree_common ul.jqtree_common li.jqtree_common:hover .jqtree-
     text-align: center;
     line-height: 1.42857143;
     border: 3px solid;
-    border-color: aliceblue;
+    border-color: #FFEB3B;
     border-radius: 4px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
     background-clip: padding-box;
     /*display: none;*/
+    background-color: ivory;
 }
 
-ul.jqtree-tree .jqtree-title {
-    color: darkblue;
+ul.jqtree-tree .jqtree-title{
+color: #333333;
 }
 
 .scroll {
@@ -125,20 +132,21 @@ ul.jqtree-tree .jqtree-title {
     overflow: hidden;
     overflow-y: initial;
     height: 500px;
+    
 }
 
     .scroll.classcontentblock {
         margin-top: 70px;
     }
-
-.col-sm-7 {
+    .col-sm-7 {
+    
     float: right;
 }
 
 
 .navbar-inverse {
-    background-color: #5782b7;
-    border-color: #1967be;
+    background-color: rgba(255, 193, 7, 0.61);
+    border-color: goldenrod;
 }
 
 .navbar {
@@ -149,7 +157,7 @@ ul.jqtree-tree .jqtree-title {
 
 
 footer {
-    background-color: #49494b;
+    background-color: #8A6541;
     font-weight: 300;
     color: #eaeaea;
 }
@@ -158,3 +166,4 @@ footer {
         padding-top: 30px;
         padding-bottom: 30px;
     }
+

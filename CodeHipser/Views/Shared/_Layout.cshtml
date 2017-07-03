@@ -21,7 +21,7 @@
     @Html.Raw(JavaScriptSnippet.FullScript)
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-inverse @*navbar-fixed-top*@">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -30,7 +30,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Code Hipster</a>
+                <a href="#" class="navbar-brand" data-toggle="collapse" >
+                    <img src="~/images/Welcome to Vectr.png" title="Welcome" alt="additional title" style="width: 100%" />
+                </a>     
             </div>
             <div class="navbar-collapse collapse">
                 @*<ul class="nav navbar-nav">
@@ -54,10 +56,10 @@
                     <div class="col-md-4">
                         <!-- COLUMN 1 -->
                         <h3 class="sr-only">ABOUT US</h3>
-                        <img src="assets/img/logo/repute-logo-light.png" class="logo" alt="Repute">
+                        @*<img src="assets/img/logo/repute-logo-light.png" class="logo" alt="Repute">*@
                         <p>Proactively aggregate B2B initiatives before extensive channels. Monotonectally extend interactive methods of empowerment through excellent applications. Rapidiously synergize visionary products with sticky technology.</p>
                         <br>
-                        <address class="margin-bottom-30px">
+                        @*<address class="margin-bottom-30px">
                             <ul class="list-unstyled">
                                 <li>
                                     1234 North Main Street
@@ -66,11 +68,11 @@
                                 <li>Phone: (1800) 765 - 4321</li>
                                 <li>Email: email@yourdomain.com</li>
                             </ul>
-                        </address>
+                        </address>*@
                         <!-- END COLUMN 1 -->
                     </div>
-                    <div class="col-md-4">
-                        <!-- COLUMN 2 -->
+                    @*<div class="col-md-4">
+                         COLUMN 2 
                         <h3 class="footer-heading">USEFUL LINKS</h3>
                         <div class="row margin-bottom-30px">
                             <div class="col-xs-6">
@@ -91,12 +93,12 @@
                                     <li><a href="#">Contact Us</a></li>
                                 </ul>
                             </div>
-                        </div>
+                        </div>*@
                         <!-- END COLUMN 2 -->
                     </div>
                     <div class="col-md-4">
                         <!-- COLUMN 3 -->
-                        <div class="newsletter">
+                        @*<div class="newsletter">
                             <h3 class="footer-heading">NEWSLETTER</h3>
                             <p>Get the latest update from us by subscribing to our newsletter.</p>
                             <form class="newsletter-form" method="POST">
@@ -106,9 +108,9 @@
                                 </div>
                                 <div class="alert"></div>
                             </form>
-                        </div>
+                        </div>*@
                         <div class="social-connect">
-                            <h3 class="footer-heading">GET CONNECTED</h3>
+                            <img src="~/images/2.png" title="2" alt="additional title" style="width: 20%; float: right "  />
                             <ul class="list-inline social-icons">
                                 <li><a href="#" class="facebook-bg"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="#" class="twitter-bg"><i class="fa fa-twitter"></i></a></li>
