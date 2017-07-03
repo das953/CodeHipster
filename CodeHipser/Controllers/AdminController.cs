@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using CodeHipser.Models.EntityBase;
 using CodeHipser.ViewModels;
 using CodeHipser.Models.Dtos;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CodeHipser.Controllers
 {
@@ -50,8 +51,6 @@ namespace CodeHipser.Controllers
         public IActionResult New(int sectionTypeId, int? parentId = null)
         {
             Section parentSection = _context.Sections.Include(x=>x.Parent).SingleOrDefault(x => x.Id == parentId);
-            if (parentSection == null)
-                NotFound();
             
             SectionViewModel viewModel = new SectionViewModel();
 
@@ -59,9 +58,13 @@ namespace CodeHipser.Controllers
             var sectionType = _context.SectionTypes.SingleOrDefault(x => x.Id == sectionTypeId);
             viewModel.SectionDto.SectionType = _mapper.Map<SectionTypeDto>(sectionType);
             viewModel.SectionDto.SectionTypeId = sectionTypeId;
-            List<Section> parentSections = GetParents(parentSection).ToList();
-            viewModel.Parents = _mapper.Map<List<Section>, List<SectionDto>>(parentSections);
 
+            if(parentSection!=null)
+            {
+                List<Section> parentSections = GetParents(parentSection).ToList();
+                viewModel.Parents = _mapper.Map<List<Section>, List<SectionDto>>(parentSections);
+                viewModel.Parents.Add(_mapper.Map<SectionDto>(parentSection));
+            }
             return View(_sectionTypeToView[viewModel.SectionDto.SectionTypeId], viewModel);
         }
 
@@ -105,10 +108,13 @@ namespace CodeHipser.Controllers
             if (!ModelState.IsValid)
             {
                 SectionViewModel sectionViewModel = viewModel;
-
-                //sectionViewModel.SectionTypes = GetAvailableSectionTypes(viewModel.Id).ToList();
-                //Section section = _context.Sections.Include(x=>x.Parent).SingleOrDefault(x => x.Id == viewModel.Id);
-                //viewModel.Parents = GetParents(section).ToList();
+                Section parentSection = _context.Sections.Include(x => x.Parent).SingleOrDefault(x => x.Id == viewModel.SectionDto.ParentId);
+                if(parentSection!=null)
+                {
+                    List<Section> parentSections = GetParents(parentSection).ToList();
+                    viewModel.Parents = _mapper.Map<List<Section>, List<SectionDto>>(parentSections);
+                    viewModel.Parents.Add(_mapper.Map<SectionDto>(parentSection));
+                }
                 return View(_sectionTypeToView[viewModel.SectionDto.SectionTypeId], viewModel);
             }
 

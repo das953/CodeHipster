@@ -9,6 +9,7 @@ namespace CodeHipser.Models.Dtos
     public class AnswerDto
     {
         [Required]
+        [Display(Name = "answer")]
         public string AnswerText { get; set; }
         public bool IsCorrect { get; set; }
         

@@ -14,9 +14,11 @@ namespace CodeHipser.Models.Dtos
         public int Id { get; set; }
 
         [Required]
+        [Display(Name = "question")]
         public string QuestionText { get; set; }
 
         [Required]
+        [Display(Name = "correct answer")]
         public int? CorrectAnswerId { get; set; }
         public List<AnswerDto> Answers { get; set; }
 

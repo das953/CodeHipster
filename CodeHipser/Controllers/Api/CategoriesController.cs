@@ -10,6 +10,7 @@ using CodeHipser.Models.Dtos;
 using CodeHipser.Models.EntityBase;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CodeHipser.Controllers.Api
 {
@@ -48,6 +49,7 @@ namespace CodeHipser.Controllers.Api
         //Get all lessons of the course with id parameter
         //Received JSON used for sidebar menu of themes, lessons, content and quizes
         [HttpGet("{id}")]
+        //[Authorize]
         public IEnumerable<CategoryDto> GetCourseById(int? id)
         {
             Section course = _context.Sections.Include(x => x.SectionType).SingleOrDefault(x => x.Id == id);

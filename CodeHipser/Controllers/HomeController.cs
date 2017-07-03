@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using CodeHipser.Models;
 using CodeHipser.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CodeHipser.Controllers
 {
@@ -25,7 +26,7 @@ namespace CodeHipser.Controllers
             }
             base.Dispose(disposing);
         }
-
+        
         public IActionResult Index()
         {
             return View();
