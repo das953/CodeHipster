@@ -1,4 +1,4 @@
-ul.jqtree-tree {
+﻿ul.jqtree-tree {
     list-style: none outside;
     margin-left: 0;
     margin-bottom: 0;
@@ -52,7 +52,7 @@ ul.jqtree-tree {
     }
 
     .jqtree-title {
-        color: #1C4257;
+       
         vertical-align: middle;
         margin-left: 1.5em;
 
@@ -181,7 +181,7 @@ ul.jqtree-tree.jqtree-rtl {
 }
 
 span.jqtree-dragging {
-    color: #fff;
+    /*color: #fff;*/
     background: #000;
     opacity: 0.6;
     cursor: pointer;

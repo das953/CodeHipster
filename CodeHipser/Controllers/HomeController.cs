@@ -64,7 +64,7 @@ namespace CodeHipser.Controllers
             ViewData["Message"] = "Try to pass this quiz, Good luck :)";
             var _currentQuiz = GetQuiz(ID);
             //quizDTO.Questions.FirstOrDefault()
-            return PartialView(_currentQuiz);
+            return ViewComponent("QuizQuestion", "Some");
         }
 
         public QuizDto GetQuiz(int? id = null)
