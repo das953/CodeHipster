@@ -10,7 +10,10 @@ namespace CodeHipser.Models.Dtos
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public SectionType SectionType { get; set; }
         public int SectionTypeId { get; set; }
+        public SectionDto Parent { get; set; }
+        public int? ParentId { get; set; }
 
         public ICollection<CategoryDto> Children { get; set; }
 

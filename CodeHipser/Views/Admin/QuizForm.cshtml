@@ -92,6 +92,7 @@
 
                 var question = $("<div id='" + questionDivId + "' class='form-group question-container'><button class='btn btn-danger question-button js-delete-question' type='button' data-question-id='" + questionCount + "'>Delete Question</button><label class='question-label'>Question</label><textarea name='" + questionName + "' class='form-control question-textarea' id='" + questionId + "' rows='3'></textarea><span class='text-danger field-validation-valid question-validation' data-valmsg-for='" + questionName + "' data-valmsg-replace='true'></span><div id='" + answersDivId + "' class='answers-container'></div></div>");
                 $("#questions-container").append(question);
+
                 for (var i = 0; i < 4; i++) {
                     AddAnswer(questionCount, i);
                 }

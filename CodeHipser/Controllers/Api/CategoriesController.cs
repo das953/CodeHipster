@@ -33,7 +33,6 @@ namespace CodeHipser.Controllers.Api
         [HttpGet]
         public IEnumerable<CategoryDto> GetCategories()
         {
-            
             IEnumerable<Section> categories = _context.Sections.Include(x => x.Children).Where(x => x.SectionTypeId == SectionType.Category).ToList();
             IEnumerable<Section> rootCategories = categories.Where(x => x.ParentId == null).OrderHierarchyBy(x => x.Name).ToList();
 

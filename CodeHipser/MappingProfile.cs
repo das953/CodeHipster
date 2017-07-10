@@ -22,6 +22,7 @@ namespace CodeHipser
 
             CreateMap<QuestionDto, Question>().PreserveReferences();
             CreateMap<AnswerDto, Answer>().PreserveReferences();
+            CreateMap<CategoryDto, Section>().PreserveReferences();
             CreateMap<SectionDto, Section>().ForMember(x=>x.SectionType, opt=>opt.Ignore()).PreserveReferences();
             CreateMap<SectionTypeDto, SectionType>();
         }

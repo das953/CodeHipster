@@ -12,7 +12,6 @@ namespace CodeHipser.Models.Dtos
 
         [Required]
         public string Name { get; set; }
-
         public string Description { get; set; }
 
         [Required]
@@ -20,7 +19,6 @@ namespace CodeHipser.Models.Dtos
 
         [Required]
         public string VideoUrl { get; set; }
-
         public int? ParentId { get; set; }
         public SectionDto Parent { get; set; }
 

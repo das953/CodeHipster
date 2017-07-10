@@ -12,6 +12,8 @@ using Microsoft.Extensions.Logging;
 using CodeHipser.Data;
 using CodeHipser.Models;
 using CodeHipser.Services;
+using CodeHipser.Data.Repositories;
+using CodeHipser.Data.Repositories.Abstract;
 
 namespace CodeHipser
 {
@@ -54,6 +56,8 @@ namespace CodeHipser
 
             var mapper = config.CreateMapper();
             services.AddSingleton(mapper);
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<AdminService>();
             services.AddMvc();
 
             // Add application services.
