@@ -1,36 +1,60 @@
-@model CodeHipser.Models.Question
+@model CodeHipser.Models.Dtos.QuizDto
+@{
+    var i = 0;
+    var _quiz = Model.Questions.ToList();
+    var tmp = @ViewBag.themeName;
 
-<div class="row">
-    <h2 style="text-align:right" class="col-md-7">@ViewBag.themeName</h2>
-    <h2 style="text-align:right" class="col-md-4">@ViewBag.currentCount/@ViewBag.totalCount</h2>
-</div>
+}
+
+<div class="container" style="max-width:100%" id="questionFrame" name="questionFrame">
+
+      
 
 
-<div class="row" style="text-align:left; word-wrap:break-word">@Model.QuestionText</div>
-<br/>
 
-<div class="row">
-    @foreach (var answer in Model.Answers)
+    @using(Html.BeginForm("Quiz/@TempData[\"QID\"]", "Home", FormMethod.Post))
     {
-        <input type="radio" name="answer" />@answer.AnswerText<br/>
+
+         <input type="radio" name="He" value="HE"/>
+         <input type="submit" value="CL" />
     }
-</div>
-
-<div class="row">
 
 
-    <div style="text-align:left; padding:0" class="col-md-6">
-        <a class="btn-default" href="@Url.Action()">Previous</a>
-        @*<button class="btn-default">Previous</button>*@
-    </div>
-
-    <div style="text-align:right; padding:0" class="col-md-6">
-        <button class="btn-default">Next</button>
+    <div class="row">
+        <h2 style="text-align:right" class="col-md-7">@ViewBag.themeName</h2>
+        <h2 style="text-align:right" class="col-md-4">@ViewBag.currentCount/@ViewBag.totalCount</h2>
     </div>
 
 
+    <div class="row" style="text-align:left; word-wrap:break-word">@_quiz[i].QuestionText</div>
+    <br />
+
+    <div class="row" style="text-align:left">
+
+
+        @foreach (var answer in _quiz[i].Answers)
+            {
+            <input type="radio" name="answer" />@answer.AnswerText<br />
+        }
+    </div>
+
+
+    <div class="row">
+
+        <form action='/Home/Quiz/@TempData["QID"]' method="get" target="questionFrame">
+
+
+            <div style="text-align:left; padding:0" class="col-md-6">
+                <a class="btn-default" href="@Url.Action()">Previous</a>
+            </div>
+
+            <div style="text-align:right; padding:0" class="col-md-6">
+                <button class="btn-default" type="submit">Next</button>
+            </div>
+        </form>
+
+    </div>
 
 </div>
-
 
 

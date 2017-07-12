@@ -13,6 +13,7 @@ using CodeHipser.Data;
 using CodeHipser.Models;
 using CodeHipser.Services;
 
+
 namespace CodeHipser
 {
     public class Startup
@@ -56,6 +57,15 @@ namespace CodeHipser
             services.AddSingleton(mapper);
             services.AddMvc();
 
+            // Adds a default in-memory implementation of IDistributedCache.
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                //options.IdleTimeout = TimeSpan.FromMinutes(20);
+                options.CookieHttpOnly = true;
+            });
+
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
@@ -83,7 +93,8 @@ namespace CodeHipser
             app.UseIdentity();
 
             // Add external authentication middleware below. To configure them please see https://go.microsoft.com/fwlink/?LinkID=532715
-
+            app.UseSession();
+            //pachage Microsoft.AspNetCore.Session
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

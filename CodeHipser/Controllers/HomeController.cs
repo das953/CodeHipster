@@ -8,6 +8,7 @@ using CodeHipser.Data;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using CodeHipser.Models.Dtos;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CodeHipser.Controllers
 {
@@ -63,8 +64,22 @@ namespace CodeHipser.Controllers
             ViewData["Greeting"] = "Hello";
             ViewData["Message"] = "Try to pass this quiz, Good luck :)";
             var _currentQuiz = GetQuiz(ID);
+
+            //var t = HttpContext.User.Identity.Name;
+            HttpContext.Session.Clear();
+            //HttpContext.Session.IsAvailable;
             //quizDTO.Questions.FirstOrDefault()
-            return ViewComponent("QuizQuestion", "Some");
+            TempData.Add("QID", ID);
+            TempData.Add("currentCount", 1);
+            TempData.Add("totalCount", _currentQuiz.Questions.Count);
+            TempData.Add("answers", new Dictionary<string, int>());
+
+            //Dictionary<string, int> _questionProgress = new Dictionary<string, int>();
+            
+            var temp = TempData["totalCount"];
+            
+
+            return ViewComponent("QuizQuestion", _currentQuiz);
         }
 
         public QuizDto GetQuiz(int? id = null)

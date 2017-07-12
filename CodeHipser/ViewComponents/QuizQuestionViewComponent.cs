@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using CodeHipser.Models;
+using CodeHipser.Models.Dtos;
 
 namespace CodeHipser.ViewComponents
 {
@@ -21,18 +22,18 @@ namespace CodeHipser.ViewComponents
         //    int currentCount, 
         //    int totalCount,
         //    string themeName)
-              public Task<IViewComponentResult> InvokeAsync(
-            string themeName)
+              public Task<IViewComponentResult> InvokeAsync(QuizDto _quiz)
         {
             //ViewData["currentCount"] = currentCount;
             //ViewData["totalCount"] = totalCount;
             //ViewData["themeName"] = themeName;
             //return (IViewComponentResult)View("Default", currentQuestion);
 
-            ViewData["currentCount"] = 1;
-            ViewData["totalCount"] = 10;
-            ViewData["themeName"] = themeName;
-            return Task.FromResult<IViewComponentResult>(View("Default", new Question { Id = 4}));
+            ViewData["currentCount"] =  TempData.Peek("currentCount");
+            ViewData["totalCount"] =  TempData.Peek("totalCount");
+            ViewData["themeName"] = "Hello world!";
+
+            return Task.FromResult<IViewComponentResult>(View("Default", _quiz));
 
         }
     }
